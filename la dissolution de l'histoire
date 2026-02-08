@@ -2,8 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jiankun Lou | 作品详情</title>
+    <title>Jiankun Lou | La dissolution de l'histoire</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,20 +19,15 @@
         </aside>
 
         <main class="content">
-            <div style="margin-bottom: 40px;">
-                <a href="index.html" style="font-size: 0.8rem; color: #999; text-decoration: none; letter-spacing: 1px;">← BACK TO ALL WORKS</a>
+            <div style="margin-bottom: 30px;">
+                <a href="index.html" style="text-decoration: none; color: #999; font-size: 0.8rem;">← BACK</a>
             </div>
 
-            <section class="project-detail">
-                <h2>作品系列名称 (Project Title)</h2>
-                <p class="description">
-                    这里写这组作品的创作理念、背景或使用的媒介。
-                    例如：探索材料的触感与空间的互动关系。
-                </p>
-
-                <div class="work-item"><img src="IMG_0516.JPG" alt="Detail 1"></div>
-                <div class="work-item"><img src="IMG_0517.JPG" alt="Detail 2"></div>
-                <div class="work-item"><img src="IMG_0519.JPG" alt="Detail 3"></div>
+            <section class="gallery">
+                <h2>La dissolution de l'histoire</h2>
+                <div class="work-item"><img src="IMG_0697.JPG"></div>
+                <div class="work-item"><img src="IMG_0690.JPG"></div>
+                <div class="work-item"><img src="IMG_0692.JPG"></div>
                 </section>
         </main>
     </div>
