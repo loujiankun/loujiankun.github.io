@@ -33,3 +33,22 @@ footer {
   font-size: 14px;
   color: #666;
 }
+.works {
+  max-width: 900px;
+}
+
+.work {
+  margin-bottom: 60px;
+}
+
+.work img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.work figcaption {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #444;
+}
