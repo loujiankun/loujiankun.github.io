@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jiankun Lou | La dissolution de l'histoire</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 这里是缩小图片的魔法代码 */
+        .work-item img {
+            width: 75%;          /* 缩小到 75%，你可以根据需要改为 60% 或 80% */
+            max-width: 800px;    /* 限制在大屏幕上的最大宽度 */
+            height: auto;
+            display: block;      /* 块级显示 */
+            margin: 0 auto;      /* 核心：水平居中 */
+            transition: opacity 0.3s ease;
+        }
+
+        .work-item img:hover {
+            opacity: 0.8;        /* 鼠标悬停时变淡，增加交互感 */
+        }
+
+        .caption {
+            text-align: center;  /* 文字也跟着居中 */
+            margin-top: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .description-text {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 80px;
+            max-width: 700px;
+            text-align: justify; /* 文字对齐更美观 */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -22,35 +54,39 @@
 
         <main class="content">
             <div style="margin-bottom: 40px;">
-                <a href="index.html" style="font-size: 0.8rem; color: #999; text-decoration: none;">← BACK TO ALL WORKS</a>
+                <a href="index.html" style="font-size: 0.7rem; color: #999; text-decoration: none; letter-spacing: 1px;">← BACK TO ALL WORKS</a>
             </div>
 
             <section class="gallery">
-                <h2 style="font-weight: 300; letter-spacing: 2px;">La dissolution de l'histoire</h2>
-                <p style="font-size: 0.8rem; color: #666; margin-bottom: 50px; max-width: 600px;">
-                    这里可以写一段关于这个系列的简短介绍（法语或中文）。
-                </p>
+                <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px;">La dissolution de l'histoire</h2>
+                
+                <div class="description-text">
+                    Cette série s'inspire de poèmes anciens décrivant les paysages et les vicissitudes de la nature. 
+                    À travers le processus de dissolution de l'encre sur le papier de riz, les mots deviennent illisibles, 
+                    symbolisant une transition de la forme tangible vers l'intangible.
+                </div>
 
-                <div class="work-item" style="margin-bottom: 60px;">
-        <a href="adn.html" style="text-decoration: none; color: inherit;">
-            <img src="IMG_0690.JPG" alt="ADN">
-            <p class="caption">I. ADN - Click to explore</p>
-        </a>
-                    
-    </div>
-                <div class="work-item" style="margin-bottom: 60px;">
-        <a href="echo.html" style="text-decoration: none; color: inherit;">
-            <img src="IMG_0679.JPG" alt="Echo">
-            <p class="caption">II. Écho - Click to explore</p>
-        </a>
-    </div>
-                <div class="work-item" style="margin-bottom: 60px;">
-        <a href="passage.html" style="text-decoration: none; color: inherit;">
-            <img src="IMG_0692.JPG" alt="Echo">
-            <p class="caption">II. Passage - Click to explore</p>
-        </a>
-    </div>
-                 
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="adn.html" style="text-decoration: none; color: inherit;">
+                        <img src="IMG_0690.JPG" alt="ADN">
+                        <p class="caption">I. ADN (2023) — Click to explore</p>
+                    </a>
+                </div>
+
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="echo.html" style="text-decoration: none; color: inherit;">
+                        <img src="IMG_0679.JPG" alt="Echo">
+                        <p class="caption">II. ÉCHO (2023) — Click to explore</p>
+                    </a>
+                </div>
+
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="passage.html" style="text-decoration: none; color: inherit;">
+                        <img src="IMG_0692.JPG" alt="Le Passage">
+                        <p class="caption">III. LE PASSAGE (2023) — Click to explore</p>
+                    </a>
+                </div>
+            </section>
         </main>
     </div>
 </body>
