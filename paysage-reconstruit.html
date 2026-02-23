@@ -3,40 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jiankun Lou | Un paysage reconstruit</title>
+    <title>Jiankun Lou | Un Paysage Reconstruit</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* 列表式索引排版 */
-        .series-list {
-            margin-top: 50px;
-            list-style: none;
-            padding: 0;
+        /* 这里是缩小图片的魔法代码 */
+        .work-item img {
+            width: 75%;          /* 缩小到 75%，你可以根据需要改为 60% 或 80% */
+            max-width: 800px;    /* 限制在大屏幕上的最大宽度 */
+            height: auto;
+            display: block;      /* 块级显示 */
+            margin: 0 auto;      /* 核心：水平居中 */
+            transition: opacity 0.3s ease;
         }
-        .series-item {
-            margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            transition: all 0.3s ease;
+
+        .work-item img:hover {
+            opacity: 0.8;        /* 鼠标悬停时变淡，增加交互感 */
         }
-        .series-item a {
-            text-decoration: none;
-            color: #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+
+        .caption {
+            text-align: center;  /* 文字也跟着居中 */
+            margin-top: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: #666;
         }
-        .series-item:hover {
-            padding-left: 10px;
-            border-bottom-color: #000;
-        }
-        .series-item .title {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .series-item .subtitle {
-            font-size: 0.75rem;
-            color: #999;
+
+        .description-text {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 80px;
+            max-width: 700px;
+            text-align: justify; /* 文字对齐更美观 */
         }
     </style>
 </head>
@@ -48,54 +46,58 @@
                 <ul>
                     <li><a href="index.html#works">WORKS</a></li>
                     <li><a href="index.html#about">ABOUT</a></li>
+                    <li><a href="index.html#statement">STATEMENT</a></li>
+                    <li><a href="index.html#contact">CONTACT</a></li>
                 </ul>
             </nav>
         </aside>
 
         <main class="content">
             <div style="margin-bottom: 40px;">
-                <a href="index.html" style="font-size: 0.7rem; color: #999; text-decoration: none;">← BACK</a>
+                <a href="index.html" style="font-size: 0.7rem; color: #999; text-decoration: none; letter-spacing: 1px;">← BACK TO ALL WORKS</a>
             </div>
 
-            <section>
-                <h2 style="font-weight: 300; letter-spacing: 3px;">Un paysage reconstruit</h2>
-                <p style="font-size: 0.85rem; color: #666; line-height: 1.8; max-width: 600px; margin-bottom: 60px;">
-                    Cette série explore la reconstruction des éléments naturels et des souvenirs personnels 
-                    à travers la matérialité du papier et des techniques de capture comme le cyanotype.
-                </p>
+            <section class="gallery">
+                <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px;">Un Paysage Reconstruit</h2>
+                
+                <div class="description-text">
+                    Cette série s'inspire de poèmes anciens décrivant les paysages et les vicissitudes de la nature. 
+                    À travers le processus de dissolution de l'encre sur le papier de riz, les mots deviennent illisibles, 
+                    symbolisant une transition de la forme tangible vers l'intangible.
+                </div>
 
-                <ul class="series-list">
-                    <li class="series-item">
-                        <a href="troncs.html">
-                            <span class="title">Troncs</span>
-                            <span class="subtitle">EXPLORE →</span>
-                        </a>
-                    </li>
-                    <li class="series-item">
-                        <a href="petioles.html">
-                            <span class="title">Pétioles</span>
-                            <span class="subtitle">EXPLORE →</span>
-                        </a>
-                    </li>
-                    <li class="series-item">
-                        <a href="tante.html">
-                            <span class="title">Tante</span>
-                            <span class="subtitle">EXPLORE →</span>
-                        </a>
-                    </li>
-                    <li class="series-item">
-                        <a href="mer-nuages.html">
-                            <span class="title">La mer et nuages</span>
-                            <span class="subtitle">EXPLORE →</span>
-                        </a>
-                    </li>
-                    <li class="series-item">
-                        <a href="reflet-eau.html">
-                            <span class="title">Reflet d'eau</span>
-                            <span class="subtitle">EXPLORE →</span>
-                        </a>
-                    </li>
-                </ul>
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="troncs.html" style="text-decoration: none; color: inherit;">
+                        <img src="B.jpg" alt="TRONCS">
+                        <p class="caption">I. TRONC (2023) — Click to explore</p>
+                    </a>
+                </div>
+
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="petioles.html" style="text-decoration: none; color: inherit;">
+                        <img src="R.jpg" alt="Petioles">
+                        <p class="caption">II. PETIOLE (2023) — Click to explore</p>
+                    </a>
+                </div>
+
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="tante.html" style="text-decoration: none; color: inherit;">
+                        <img src="P.jpg" alt="Tante">
+                        <p class="caption">III. TANTE (2023) — Click to explore</p>
+                    </a>
+                </div>
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="mer-nuages.html" style="text-decoration: none; color: inherit;">
+                        <img src="Y.jpg" alt="Mer-nuages">
+                        <p class="caption">IV. MER-NUAGES (2023) — Click to explore</p>
+                    </a>
+                </div>
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="reflet-eau.html" style="text-decoration: none; color: inherit;">
+                        <img src="X.jpg" alt="Reflet">
+                        <p class="caption">V. REFLET (2023) — Click to explore</p>
+                    </a>
+                </div>
             </section>
         </main>
     </div>
