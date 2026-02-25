@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiankun Lou | Une marche dans la montagne</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 这里是缩小图片的魔法代码 */
+        .work-item img {
+            width: 75%;          /* 缩小到 75%，你可以根据需要改为 60% 或 80% */
+            max-width: 800px;    /* 限制在大屏幕上的最大宽度 */
+            height: auto;
+            display: block;      /* 块级显示 */
+            margin: 0 auto;      /* 核心：水平居中 */
+            transition: opacity 0.3s ease;
+        }
+
+        .work-item img:hover {
+            opacity: 0.8;        /* 鼠标悬停时变淡，增加交互感 */
+        }
+
+        .caption {
+            text-align: center;  /* 文字也跟着居中 */
+            margin-top: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .description-text {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 80px;
+            max-width: 700px;
+            text-align: justify; /* 文字对齐更美观 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h1><a href="index.html" style="text-decoration: none; color: inherit;">JIANKUN LOU</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html#works">WORKS</a></li>
+                    <li><a href="index.html#about">ABOUT</a></li>
+                    <li><a href="index.html#statement">STATEMENT</a></li>
+                    <li><a href="index.html#contact">CONTACT</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div style="margin-bottom: 40px;">
+                <a href="index.html" style="font-size: 0.7rem; color: #999; text-decoration: none; letter-spacing: 1px;">← BACK TO ALL WORKS</a>
+            </div>
+
+            <section class="gallery">
+                <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px;">Une marche dans la montagne</h2>
+                
+                <div class="description-text">
+                    Cette série s'inspire de poèmes anciens décrivant les paysages et les vicissitudes de la nature. 
+                    À travers le processus de dissolution de l'encre sur le papier de riz, les mots deviennent illisibles, 
+                    symbolisant une transition de la forme tangible vers l'intangible.
+                </div>
+
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="cairn.html" style="text-decoration: none; color: inherit;">
+                        <img src="20.jpg" alt="Cairn">
+                        <p class="caption">I. CAIRN (2023) — Click to explore</p>
+                    </a>
+                </div>
+
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="mur.html" style="text-decoration: none; color: inherit;">
+                        <img src="34.jpg" alt="Mur">
+                        <p class="caption">II. MUR (2023) — Click to explore</p>
+                    </a>
+                </div>
+
+                <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="orgue.html" style="text-decoration: none; color: inherit;">
+                        <img src="36.jpg" alt="Orgue">
+                        <p class="caption">III. ORGUE (2023) — Click to explore</p>
+                    </a>
+                </div>
+
+              <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="deux montagne.html" style="text-decoration: none; color: inherit;">
+                        <img src="19.jpg" alt="Deux montagne">
+                        <p class="caption">IV. DEUX MONTAGNE (2023) — Click to explore</p>
+                    </a>
+                </div>
+
+              <div class="work-item" style="margin-bottom: 80px;">
+                    <a href="chemin.html" style="text-decoration: none; color: inherit;">
+                        <img src="31.jpg" alt="Chemin">
+                        <p class="caption">V. CHEMIN (2023) — Click to explore</p>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
