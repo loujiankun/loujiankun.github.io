@@ -5,67 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jiankun Lou | Artist</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 默认隐藏所有板块，除了 WORKS */
+        .content-section {
+            display: none;
+        }
+        #works {
+            display: block; /* 初始显示作品页 */
+        }
+        .text-content {
+            max-width: 700px;
+            line-height: 1.8;
+            font-size: 0.9rem;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
-            <h1>JIANKUN LOU</h1>
+            <h1><a href="javascript:void(0)" onclick="showSection('works')" style="text-decoration: none; color: inherit;">JIANKUN LOU</a></h1>
             <nav>
                 <ul>
-                    <li><a href="#works">WORKS</a></li>
-                    <li><a href="#about">ABOUT</a></li>
-                    <li><a href="#statement">STATEMENT</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('works')">WORKS</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('about')">ABOUT</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('statement')">STATEMENT</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('contact')">CONTACT</a></li>
                 </ul>
             </nav>
         </aside>
 
         <main class="content">
-            <section id="works" class="gallery">
-   <div class="work-item">
-   <a href="une marche dans la montagne.html" style="text-decoration: none; color: inherit;">    
-        <img src="IMG_7323.JPG" alt="une marche dans la montagne.html">
-        <p class="caption">见⼭,见⽔,见自⼰
-                           Contempler la montagne,contempler l’eau,se contempler soi-même, variable, Septembre 2025</p>
-        </p>
-    </a>
-</div>
+            <section id="works" class="content-section gallery">
+                <div class="work-item">
+                    <a href="une-marche.html" style="text-decoration: none; color: inherit;">     
+                        <img src="IMG_7323.JPG" alt="Contempler">
+                        <p class="caption">见山, 见水, 见自己<br>Contempler la montagne, contempler l’eau, se contempler soi-même, 2025</p>
+                    </a>
+                </div>
 
-    <div class="work-item">
-    <a href="paysage-reconstruit.html" style="text-decoration: none; color: inherit;">
-        <img src="IMG_9234.JPG" alt="Un paysage reconstruit">
-        <p class="caption">
-            <strong>UN PAYSAGE RECONSTRUIT</strong><br>
-            Série d'installations, 2025
-        </p>
-    </a>
-</div>
+                <div class="work-item">
+                    <a href="paysage-reconstruit.html" style="text-decoration: none; color: inherit;">
+                        <img src="IMG_9234.JPG" alt="Un paysage reconstruit">
+                        <p class="caption"><strong>UN PAYSAGE RECONSTRUIT</strong><br>Série d'installations, 2025</p>
+                    </a>
+                </div>
 
-    <div class="work-item">
-    <a href="dissolution.html" style="text-decoration: none; color: inherit;">
-        <img src="IMG_0697.JPG" alt="Cover">
-        <p class="caption">La dissolution de l'histoire, variable, 2023</p>
-    </a>
-</div>
-</section>
+                <div class="work-item">
+                    <a href="dissolution.html" style="text-decoration: none; color: inherit;">
+                        <img src="IMG_0697.JPG" alt="Dissolution">
+                        <p class="caption">La dissolution de l'histoire, installation, 2023</p>
+                    </a>
+                </div>
+            </section>
 
-            <section id="about">
+            <section id="about" class="content-section">
                 <h2>ABOUT</h2>
-                <p>Jiankun Lou 是一位居住在法国的艺术家...</p>
+                <div class="text-content">
+                    <p>Jiankun Lou, né en Chine, est un artiste vivant et travaillant en France.</p>
+                    <p>Diplômé de l'École Supérieure d'Art et de Design de Limoges (DNA, 2023).</p>
+                    <p>Ses recherches portent sur la matérialité et la mémoire du paysage.</p>
+                </div>
             </section>
 
-            <section id="statement">
+            <section id="statement" class="content-section">
                 <h2>STATEMENT</h2>
-                <p>这里的艺术自述探讨了材料与感知之间的关系...</p>
+                <div class="text-content">
+                    <p>“Imaginer (percevoir) est un verbe”.</p>
+                    <p>À travers la dissolution de l'encre et la reconstruction du papier recyclé, mon travail explore la frontière entre le tangible et l'intangible.</p>
+                </div>
             </section>
 
-            <section id="contact">
+            <section id="contact" class="content-section">
                 <h2>CONTACT</h2>
-                <p>Email: louyanart@gmail.com</p>
-                <p>Téléphone: +33 0638209306</p>
-                <p>Instagram: loujiankun</p>
+                <div class="text-content">
+                    <p>Email: <a href="mailto:louyanart@gmail.com">louyanart@gmail.com</a></p>
+                    <p>Téléphone: +33 06 38 20 93 06</p>
+                    <p>Instagram: <a href="https://instagram.com/loujiankun" target="_blank">loujiankun</a></p>
+                </div>
             </section>
         </main>
     </div>
+
+    <script>
+        function showSection(sectionId) {
+            // 隐藏所有 section
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => {
+                sec.style.display = 'none';
+            });
+            
+            // 显示点击的那个 section
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.style.display = 'block';
+            }
+            
+            // 滚动回顶部
+            window.scrollTo(0, 0);
+        }
+    </script>
 </body>
 </html>
