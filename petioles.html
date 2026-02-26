@@ -5,19 +5,74 @@
     <title>Jiankun Lou | Pétioles</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .work-item img {
-            width: 80%;
-            max-width: 900px;
-            display: block;
+        /* 网格布局：每行三张 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 1000px;
             margin: 0 auto;
         }
-        .caption {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #666;
-            letter-spacing: 1px;
+
+        .image-grid img {
+            width: 100%;
+            height: 300px; /* 统一高度，更整齐 */
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
         }
+
+        .image-grid img:hover {
+            opacity: 0.8;
+        }
+
+        /* 灯箱 (Lightbox) 样式 */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); /* 极简白背景 */
+            display: none; /* 初始隐藏 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            user-select: none;
+        }
+
+        /* 左右导航按钮 */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 1001;
+            user-select: none;
+        }
+
+        .prev-btn { left: 5%; }
+        .next-btn { right: 5%; }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #333;
+        }
+
         .project-description {
             max-width: 700px;
             margin: 0 auto 60px auto;
@@ -25,6 +80,13 @@
             line-height: 1.8;
             color: #444;
             text-align: justify;
+        }
+
+        .metadata {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 40px;
         }
     </style>
 </head>
@@ -41,28 +103,82 @@
         </aside>
 
         <main class="content">
-            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px;">Petioles</h2>
-             <p class="metadata" style="font-size: 0.75rem; color: #888; margin-bottom: 20px;">
-                    Composition des gestes, l’empreinte des pétioles sur papier manuel ( en papier journal recyclé),
-30cm*45cm environ chaque feuille, Janvier 2024 <br>
-                    
-                </p>
+            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">Pétioles</h2>
+            
+            <p class="metadata">
+                Composition des gestes, l’empreinte des pétioles sur papier manuel (en papier journal recyclé),<br>
+                30cm*45cm environ chaque feuille, Janvier 2024
+            </p>
             
             <div class="project-description">
-                L’empreinte des pétioles, l'idée vient d'une simple observation fortuite des feuilles d’arbre dans la pluie (des nervures et des pétioles). Ce qui m’intéresse ici, c’est
-que la forme du pétiole est comme le geste du début et la pause ou la fin du trait quand on fait la peinture et la calligraphie avec le pinceau.
+                L’empreinte des pétioles, l'idée vient d'une simple observation fortuite des feuilles d’arbre dans la pluie (des nervures et des pétioles). 
+                Ce qui m’intéresse ici, c’est que la forme du pétiole est comme le geste du début et la pause ou la fin du trait quand on fait la peinture et la calligraphie avec le pinceau.
             </div>
 
-            <div class="work-item">
-                <img src="S.jpg" alt="Petioles 1">
-                <img src="T.jpg" alt="Petioles 1">
-                <img src="U.jpg" alt="Petioles 1">
-                <img src="V.jpg" alt="Petioles 1">
-                <img src="W.jpg" alt="Petioles 1">
-                
+            <div class="image-grid">
+                <img src="S.jpg" class="gallery-img" alt="Petioles 1">
+                <img src="T.jpg" class="gallery-img" alt="Petioles 2">
+                <img src="U.jpg" class="gallery-img" alt="Petioles 3">
+                <img src="V.jpg" class="gallery-img" alt="Petioles 4">
+                <img src="W.jpg" class="gallery-img" alt="Petioles 5">
             </div>
             
-            </main>
+            <div id="lightbox" style="display: none;">
+                <span class="close-btn" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
+                <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
+            </div>
+
+        </main>
     </div>
+
+    <script>
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 为每张缩略图绑定点击事件
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(step) {
+            currentIdx += step;
+            // 循环逻辑：最后一张点下一张回第一张
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // 键盘左右键控制
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // 点击背景关闭
+        lightbox.onclick = (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        };
+    </script>
 </body>
 </html>
