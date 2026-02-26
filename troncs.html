@@ -5,19 +5,65 @@
     <title>Jiankun Lou | Troncs</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .work-item img {
-            width: 80%;
-            max-width: 900px;
-            display: block;
+        /* 网格布局：一行三张 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 核心：平分为三列 */
+            gap: 15px; /* 图片之间的间距 */
+            max-width: 1000px;
             margin: 0 auto;
         }
+
+        .image-grid img {
+            width: 100%;
+            height: 250px; /* 固定高度使对齐整齐 */
+            object-fit: cover; /* 裁剪以填充容器 */
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-grid img:hover {
+            opacity: 0.8;
+        }
+
+        /* 放大层样式 (Lightbox) */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95); /* 极简白色背景 */
+            text-align: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            margin-top: 5%;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        #lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #333;
+        }
+
         .caption {
             text-align: center;
-            margin-top: 20px;
+            margin: 40px 0;
             font-size: 0.8rem;
             color: #666;
             letter-spacing: 1px;
+            line-height: 1.6;
         }
+
         .project-description {
             max-width: 700px;
             margin: 0 auto 60px auto;
@@ -41,46 +87,57 @@
         </aside>
 
         <main class="content">
-            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px;">Troncs</h2>
+            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">Troncs</h2>
+            
             <p class="caption">
-    Recomposition d’arbre, L’empreinte de l’écorce d’arbre et des doigts en papier mâché journal, <br>
-    dimensions variables, Juin 2025
-</p>
+                Recomposition d’arbre, L’empreinte de l’écorce d’arbre et des doigts en papier mâché journal, <br>
+                dimensions variables, Juin 2025
+            </p>
             
             <div class="project-description">
-                Pour les troncs, à l’intérieur, c’est l’empreinte de l’écorce de l’arbre, et l’extérieur , c’est que je l’ai fait en écho avec l’empreinte de mes doigts qui a font les
-reliefs, les traces comme de l’ecorce, le résultat se re-compose comme un arbre，
-—— c’est comme un geste de re-cyclage.
-La couleur gris neutre, il vient de la matière, c’est un melange des couleurs d’encres sur dessus des papiers journaux, et je pense que le gris il comprends tous les
-couleurs.
-C’est comme les pièces en monochrome de Hans op de beeck avec le gris un peu mate. Aussi comme les sculptures de Didier Marcel, il utilise un seul élément
-simple pour représenter les images et les paysages, donc ici j’ai gardé que le gris du papier, et le marron vient du corps de l’arbre qui pénètre le papier et reste a
-la surface.
-Les arbres sont important, comme dans le livre 《 l’arbre dans le paysage》de jean Mottet , il a écrit : Jamais l’arbre n’a été aussi nécessaire à l’homme, mais
-jamais l’homme n’a exercé sur lui autant de pression de destruction.
-Comme au nord en chine il y a souvent le smog en hiver et aussi de nombreuses tempêtes de sable au printemps. On nous a donc inculqué depuis l'enfance
-l'importance des arbres pour l'environnement naturel.
-Il y a aussi un très vieil arbre dans la village ou je suis né. C'est un pin et un cyprès poussant ensemble.
-La légende raconte qu'il a plus de 2 000 ans d'histoire, mais il a malheureusement été incendié en 2004. Et la il reste que le tronc et il ne pousse plus de nouvelles
-feuilles.
+                Pour les troncs, à l’intérieur, c’est l’empreinte de l’écorce de l’arbre, et l’extérieur, c’est que je l’ai fait en écho avec l’empreinte de mes doigts qui ont fait les reliefs, les traces comme de l’écorce, le résultat se re-compose comme un arbre —— c’est comme un geste de re-cyclage.
+                <br><br>
+                La couleur gris neutre vient de la matière, c’est un mélange des couleurs d’encres sur les papiers journaux. C’est comme les pièces en monochrome de Hans Op de Beeck ou les sculptures de Didier Marcel. 
+                <br><br>
+                Il y a aussi un très vieil arbre dans le village où je suis né. La légende raconte qu'il a plus de 2 000 ans d'histoire, mais il a malheureusement été incendié en 2004. Il ne reste que le tronc.
             </div>
 
-            <div class="work-item">
-                <img src="A.jpg" alt="Troncs 1">
-                <img src="D.jpg" alt="Troncs 1">
-                <img src="F.jpg" alt="Troncs 1">
-                <img src="O.jpg" alt="Troncs 1">
-                <img src="G.jpg" alt="Troncs 1">
-                <img src="H.jpg" alt="Troncs 1">
-                <img src="L.jpg" alt="Troncs 1">
-                <img src="K.jpg" alt="Troncs 1">
-                <img src="M.jpg" alt="Troncs 1">
-                <img src="N.jpg" alt="Troncs 1">
-                <img src="J.jpg" alt="Troncs 1">
-                
+            <div class="image-grid">
+                <img src="A.jpg" alt="Troncs 1" onclick="openLightbox(this.src)">
+                <img src="D.jpg" alt="Troncs 2" onclick="openLightbox(this.src)">
+                <img src="F.jpg" alt="Troncs 3" onclick="openLightbox(this.src)">
+                <img src="O.jpg" alt="Troncs 4" onclick="openLightbox(this.src)">
+                <img src="G.jpg" alt="Troncs 5" onclick="openLightbox(this.src)">
+                <img src="H.jpg" alt="Troncs 6" onclick="openLightbox(this.src)">
+                <img src="L.jpg" alt="Troncs 7" onclick="openLightbox(this.src)">
+                <img src="K.jpg" alt="Troncs 8" onclick="openLightbox(this.src)">
+                <img src="M.jpg" alt="Troncs 9" onclick="openLightbox(this.src)">
+                <img src="N.jpg" alt="Troncs 10" onclick="openLightbox(this.src)">
+                <img src="J.jpg" alt="Troncs 11" onclick="openLightbox(this.src)">
             </div>
             
-            </main>
+            <div id="lightbox">
+                <span class="close" onclick="closeLightbox()">&times;</span>
+                <img id="lightbox-img" src="">
+            </div>
+
+        </main>
     </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'block';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // 点击背景也可以关闭
+        document.getElementById('lightbox').onclick = function(e) {
+            if (e.target.id === 'lightbox') closeLightbox();
+        }
+    </script>
 </body>
 </html>
