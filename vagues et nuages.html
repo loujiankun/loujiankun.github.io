@@ -5,19 +5,82 @@
     <title>Jiankun Lou | Vagues et nuages</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .work-item img {
-            width: 80%;
-            max-width: 900px;
-            display: block;
+        /* Grille d'images : 3 par ligne */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 1000px;
             margin: 0 auto;
         }
-        .caption {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #666;
-            letter-spacing: 1px;
+
+        .image-grid img {
+            width: 100%;
+            height: 250px; /* Hauteur fixe pour l'alignement */
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
         }
+
+        .image-grid img:hover {
+            opacity: 0.8;
+        }
+
+        /* Style du Lightbox (Agrandissement) */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            user-select: none;
+        }
+
+        /* Boutons de navigation */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 1001;
+            transition: color 0.3s;
+        }
+
+        .nav-btn:hover { color: #999; }
+        .prev-btn { left: 3%; }
+        .next-btn { right: 3%; }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .metadata {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
         .project-description {
             max-width: 700px;
             margin: 0 auto 60px auto;
@@ -25,6 +88,14 @@
             line-height: 1.8;
             color: #444;
             text-align: justify;
+        }
+
+        .caption {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #666;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -41,30 +112,94 @@
         </aside>
 
         <main class="content">
-            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px;">Vagues et nuages</h2>
+            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">Vagues et nuages</h2>
+            
+            <p class="metadata">
+                Où la mer rejoint le ciel —— 海天一线 (hai tian yi xian) <br>
+                Installation variable en papier manuel (papier journal recyclé), <br>
+                environ 600 feuilles (30cm*45cm), Juin 2025
+            </p>
             
             <div class="project-description">
-                Exploration de la texture et de la verticalité à travers le papier recyclé. 
-                Une reconstruction de la mémoire de la forêt.
+                Dans cette installation, j’ai essayé de recomposer un paysage marin : des vagues formées par environ six cents feuilles courbes, dialoguant avec des formes de nuages suspendues. L'ensemble crée une ambiance calme et imaginaire. 
+                <br><br>
+                Mon travail a été influencé par l'installation <em>The Silent Reflection</em> de <strong>Hans Op de Beeck</strong>, où il suggère une ouverture vers l'extérieur et un horizon infini. Mes pièces dans l’espace font écho aux ombres du jardin extérieur, comme un mirage porté par le gris neutre du papier. 
+                <br><br>
+                Le titre « Où la mer rejoint le ciel » (海天一线) évoque cette ligne d'horizon qui n'existe pas physiquement, mais que j'ai tenté de matérialiser au bord de chaque feuille de papier.
             </div>
 
-            <div class="work-item">
-                <img src="Z.jpg" alt="Mer et nuages 1">
-                <img src="AA.jpg" alt="Mer et nuages 1">
-                <img src="BB.jpg" alt="Mer et nuages 1">
-                <img src="CC.jpg" alt="Mer et nuages 1">
-                <img src="DD.jpg" alt="Mer et nuages 1">
-                <img src="EE.jpg" alt="Mer et nuages 1">
-                <img src="FF.jpg" alt="Mer et nuages 1">
-                <img src="HH.jpg" alt="Mer et nuages 1">
-                <img src="II.jpg" alt="Mer et nuages 1">
-                <img src="GG.jpg" alt="Mer et nuages 1">
-                <img src="KK.jpg" alt="Mer et nuages 1">
-                <img src="LL.jpg" alt="Mer et nuages 1">
-                <p class="caption">Vagues et nuages, dimension variable, 2025</p>
+            <div class="image-grid">
+                <img src="Z.jpg" class="gallery-img" alt="Vagues et nuages 1">
+                <img src="AA.jpg" class="gallery-img" alt="Vagues et nuages 2">
+                <img src="BB.jpg" class="gallery-img" alt="Vagues et nuages 3">
+                <img src="CC.jpg" class="gallery-img" alt="Vagues et nuages 4">
+                <img src="DD.jpg" class="gallery-img" alt="Vagues et nuages 5">
+                <img src="EE.jpg" class="gallery-img" alt="Vagues et nuages 6">
+                <img src="FF.jpg" class="gallery-img" alt="Vagues et nuages 7">
+                <img src="HH.jpg" class="gallery-img" alt="Vagues et nuages 8">
+                <img src="II.jpg" class="gallery-img" alt="Vagues et nuages 9">
+                <img src="GG.jpg" class="gallery-img" alt="Vagues et nuages 10">
+                <img src="KK.jpg" class="gallery-img" alt="Vagues et nuages 11">
+                <img src="LL.jpg" class="gallery-img" alt="Vagues et nuages 12">
             </div>
+
+            <p class="caption">Installation : Vagues et nuages, dimensions variables, 2025</p>
             
-            </main>
+            <div id="lightbox">
+                <span class="close-btn" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
+                <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
+            </div>
+
+        </main>
     </div>
+
+    <script>
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // Initialisation des clics
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(step) {
+            currentIdx += step;
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // Contrôles clavier
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // Fermer en cliquant sur le fond
+        lightbox.onclick = (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        };
+    </script>
 </body>
 </html>
