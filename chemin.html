@@ -4,6 +4,85 @@
     <meta charset="UTF-8">
     <title>Jiankun Lou | CHEMIN</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- 图片网格布局 --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 核心指令：每行平均分布 3 列 */
+            gap: 15px; /* 图片之间的间距 */
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px; /* 指令：固定缩略图高度，确保视觉对齐 */
+            object-fit: cover; /* 指令：图片等比裁剪填充，不拉伸变形 */
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-img:hover {
+            opacity: 0.8;
+        }
+
+        /* --- 放大预览层 (Lightbox) 样式 --- */
+        #lightbox {
+            display: none; /* 初始隐藏 */
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); /* 极简白背景 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 85vh; /* 限制大图高度 */
+            object-fit: contain; /* 确保显示完整图片 */
+        }
+
+        /* --- 导航按钮 (左右切换) --- */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 1001;
+            transition: color 0.3s;
+        }
+
+        .nav-btn:hover { color: #999; }
+        .prev-btn { left: 3%; } /* 上一张按钮 */
+        .next-btn { right: 3%; } /* 下一张按钮 */
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* --- 页面文本排版 --- */
+        .project-detail { text-align: center; }
+        .metadata { font-size: 0.75rem; color: #888; margin-bottom: 20px; }
+        .description { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            font-size: 0.85rem; 
+            line-height: 1.8; 
+            text-align: justify; 
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -19,25 +98,82 @@
 
         <main class="content">
             <section class="project-detail">
-                <h2 style="letter-spacing: 3px;">CHEMIN</h2>
-                <p class="metadata" style="font-size: 0.75rem; color: #888; margin-bottom: 20px;">
-                    Papier de riz, encre de Chine, fil de coton, bois. <br>
-                    320cm x 110cm x 80cm, 2023.
+                <h2 style="letter-spacing: 3px; font-weight: 300;">CHEMIN</h2>
+                <p class="metadata">
+                    papier journal recyclé, 257cm*166cm*116cm, aout 2025
                 </p>
                 
-                <p class="description" style="max-width: 600px; font-size: 0.85rem; line-height: 1.8;">
-                    "CHEMIN" explore la trace et la mémoire à travers la matérialité du papier de riz. 
-                    L'installation suspendue crée un dialogue entre le vide et la structure... (这里可以继续根据PDF翻译或精简内容)
+                <p class="description">
+                    Cette pièce traduit l’impression d’une montagne mémorisée. J’ai construit une structure de bois et de grillage métallique, que j’ai recouverte de papier mâché. Chaque jointure a été conservée, évoquant les sentiers sinueux laissés par les marcheurs. Après j’ai ré-humidifié ces “sentiers” la couleur a été plus foncée, et puis elle s'est effacée doucement en séchant. Si les pas disparaissent, les chemins s’effaceront lentement, comme une mémoire fragile. 
+                    <br><br>
+                    Cela m'a rappelé également "A Line Made by Walking" de Richard Long. Ce geste de humidifier m'a rappelé également les "Dàye" (les aînés) en Chine qui pratiquent la calligraphie au sol avec un gros pinceau et de l’eau : les mots s'évaporent lentement en pratiquant.
                 </p>
 
-                <div class="work-item"><img src="31.jpg" alt="CHEMIN Detail"></div>
-                <div class="work-item"><img src="4.jpg" alt="CHEMIN Detail"></div>
-                <div class="work-item"><img src="2.jpg" alt="CHEMIN Detail"></div>
-                <div class="work-item"><img src="7.jpg" alt="CHEMIN Detail"></div>
-                <div class="work-item"><img src="1.jpg" alt="CHEMIN Detail"></div>
-                <div class="work-item"><img src="13.jpg" alt="CHEMIN Detail"></div>
-                </section>
+                <div class="image-grid">
+                    <img src="31.jpg" class="gallery-img" alt="CHEMIN Detail 1">
+                    <img src="4.jpg" class="gallery-img" alt="CHEMIN Detail 2">
+                    <img src="2.jpg" class="gallery-img" alt="CHEMIN Detail 3">
+                    <img src="7.jpg" class="gallery-img" alt="CHEMIN Detail 4">
+                    <img src="1.jpg" class="gallery-img" alt="CHEMIN Detail 5">
+                    <img src="13.jpg" class="gallery-img" alt="CHEMIN Detail 6">
+                </div>
+            </section>
+
+            <div id="lightbox">
+                <span class="close-btn" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button> <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button> </div>
         </main>
     </div>
+
+    <script>
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 1. 初始化：为所有缩略图绑定点击事件
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        // 2. 打开放大层
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+        }
+
+        // 3. 关闭放大层
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复滚动
+        }
+
+        // 4. 切换图片逻辑 (循环模式)
+        function changeImage(step) {
+            currentIdx += step;
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // 5. 键盘交互控制 (左右按键)
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // 6. 点击背景空白处关闭
+        lightbox.onclick = (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        };
+    </script>
 </body>
 </html>
