@@ -2,8 +2,87 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Jiankun Lou | DEUX MONTAGNE</title>
+    <title>Jiankun Lou | DEUX MONTAGNES</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- 图片网格布局 --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 核心指令：每行平均分布 3 列 */
+            gap: 15px; /* 图片之间的间距 */
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px; /* 同一高度使对齐整齐 */
+            object-fit: cover; /* 裁剪填充，防止图片拉伸 */
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-img:hover {
+            opacity: 0.8;
+        }
+
+        /* --- 放大预览层 (Lightbox) 样式 --- */
+        #lightbox {
+            display: none; /* 初始隐藏 */
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); /* 极简白色背景 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 85vh; /* 限制大图高度 */
+            object-fit: contain; /* 确保显示完整图片 */
+        }
+
+        /* --- 导航按钮 (左右切换) --- */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 1001;
+            transition: color 0.3s;
+        }
+
+        .nav-btn:hover { color: #999; }
+        .prev-btn { left: 3%; } /* 左按钮 */
+        .next-btn { right: 3%; } /* 右按钮 */
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* --- 页面文本排版 --- */
+        .project-detail { text-align: center; }
+        .metadata { font-size: 0.75rem; color: #888; margin-bottom: 20px; }
+        .description { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            font-size: 0.85rem; 
+            line-height: 1.8; 
+            text-align: justify; 
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -19,27 +98,79 @@
 
         <main class="content">
             <section class="project-detail">
-                <h2 style="letter-spacing: 3px;">DEUX MONTAGNE</h2>
-                <p class="metadata" style="font-size: 0.75rem; color: #888; margin-bottom: 20px;">
-                    Papier de riz, encre de Chine, fil de coton, bois. <br>
-                    320cm x 110cm x 80cm, 2023.
+                <h2 style="letter-spacing: 3px; font-weight: 300;">DEUX MONTAGNES</h2>
+                <p class="metadata">
+                    papier journal recyclé, fils de fer, dimension variable, espace de Lavitrine limoges, aout 2025
                 </p>
                 
-                <p class="description" style="max-width: 600px; font-size: 0.85rem; line-height: 1.8;">
-                    "DEUX MONTAGNE" explore la trace et la mémoire à travers la matérialité du papier de riz. 
-                    L'installation suspendue crée un dialogue entre le vide et la structure... (这里可以继续根据PDF翻译或精简内容)
+                <p class="description">
+                    Cette composition représente une installation avec deux montagnes qui se posent à l’envers, reliées par des câbles métalliques, et inspirée par les téléphériques qui traversent la montagne. Le dispositif crée une illusion de reflet dans l’eau et renvoie à l’exploration du miroir et de la symétrie, que l’on retrouve chez Anish Kapoor. Ici, la montagne n’est pas seulement un volume, mais une idée en miroir, un jeu entre réel et imaginaire.
                 </p>
 
-                <div class="work-item"><img src="29.jpg" alt="DEUX MONTAGNE Detail"></div>
-                <div class="work-item"><img src="19.jpg" alt="DEUX MONTAGNE Detail"></div>
-                <div class="work-item"><img src="28.jpg" alt="DEUX MONTAGNE Detail"></div>
-                <div class="work-item"><img src="22.jpg" alt="DEUX MONTAGNE Detail"></div>
-                <div class="work-item"><img src="12.jpg" alt="DEUX MONTAGNE Detail"></div>
-                <div class="work-item"><img src="33.jpg" alt="DEUX MONTAGNE Detail"></div>
-                <div class="work-item"><img src="3.jpg" alt="DEUX MONTAGNE Detail"></div>
-                <div class="work-item"><img src="21.jpg" alt="DEUX MONTAGNE Detail"></div>
-                </section>
+                <div class="image-grid">
+                    <img src="29.jpg" class="gallery-img" alt="DEUX MONTAGNES 1">
+                    <img src="19.jpg" class="gallery-img" alt="DEUX MONTAGNES 2">
+                    <img src="28.jpg" class="gallery-img" alt="DEUX MONTAGNES 3">
+                    <img src="22.jpg" class="gallery-img" alt="DEUX MONTAGNES 4">
+                    <img src="12.jpg" class="gallery-img" alt="DEUX MONTAGNES 5">
+                    <img src="33.jpg" class="gallery-img" alt="DEUX MONTAGNES 6">
+                    <img src="3.jpg" class="gallery-img" alt="DEUX MONTAGNES 7">
+                    <img src="21.jpg" class="gallery-img" alt="DEUX MONTAGNES 8">
+                </div>
+            </section>
+
+            <div id="lightbox">
+                <span class="close-btn" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button> <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button> </div>
         </main>
     </div>
+
+    <script>
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 初始化图片点击事件
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 锁定背景滚动
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复滚动
+        }
+
+        function changeImage(step) {
+            currentIdx += step;
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // 键盘交互控制
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // 点击空白处关闭
+        lightbox.onclick = (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        };
+    </script>
 </body>
 </html>
