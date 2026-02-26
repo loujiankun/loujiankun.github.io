@@ -8,16 +8,16 @@
         /* 网格布局：一行三张 */
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 核心：平分为三列 */
-            gap: 15px; /* 图片之间的间距 */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             max-width: 1000px;
             margin: 0 auto;
         }
 
         .image-grid img {
             width: 100%;
-            height: 250px; /* 固定高度使对齐整齐 */
-            object-fit: cover; /* 裁剪以填充容器 */
+            height: 250px;
+            object-fit: cover;
             cursor: pointer;
             transition: opacity 0.3s ease;
         }
@@ -31,36 +31,54 @@
             display: none;
             position: fixed;
             z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.95); /* 极简白色背景 */
-            text-align: center;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); /* 极简白色背景 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         #lightbox img {
             max-width: 90%;
-            max-height: 80%;
-            margin-top: 5%;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            max-height: 80vh;
+            object-fit: contain;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
-        #lightbox .close {
+        /* 导航按钮样式 */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            user-select: none;
+            transition: color 0.3s;
+        }
+
+        .nav-btn:hover { color: #999; }
+        .prev-btn { left: 3%; }
+        .next-btn { right: 3%; }
+
+        .close {
             position: absolute;
             top: 20px;
             right: 30px;
-            font-size: 30px;
+            font-size: 35px;
             cursor: pointer;
             color: #333;
         }
 
-        .caption {
+        .metadata {
             text-align: center;
-            margin: 40px 0;
-            font-size: 0.8rem;
-            color: #666;
-            letter-spacing: 1px;
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 20px;
             line-height: 1.6;
         }
 
@@ -88,7 +106,8 @@
 
         <main class="content">
             <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">Troncs</h2>
-            <p class="metadata" style="font-size: 0.75rem; color: #888; margin-bottom: 20px;">
+            
+            <p class="metadata">
                 Recomposition d’arbre, L’empreinte de l’écorce d’arbre et des doigts en papier mâché journal, <br>
                 dimensions variables, Juin 2025
             </p>
@@ -102,39 +121,73 @@
             </div>
 
             <div class="image-grid">
-                <img src="A.jpg" alt="Troncs 1" onclick="openLightbox(this.src)">
-                <img src="D.jpg" alt="Troncs 2" onclick="openLightbox(this.src)">
-                <img src="F.jpg" alt="Troncs 3" onclick="openLightbox(this.src)">
-                <img src="O.jpg" alt="Troncs 4" onclick="openLightbox(this.src)">
-                <img src="G.jpg" alt="Troncs 5" onclick="openLightbox(this.src)">
-                <img src="H.jpg" alt="Troncs 6" onclick="openLightbox(this.src)">
-                <img src="L.jpg" alt="Troncs 7" onclick="openLightbox(this.src)">
-                <img src="K.jpg" alt="Troncs 8" onclick="openLightbox(this.src)">
-                <img src="M.jpg" alt="Troncs 9" onclick="openLightbox(this.src)">
-                <img src="N.jpg" alt="Troncs 10" onclick="openLightbox(this.src)">
-                <img src="J.jpg" alt="Troncs 11" onclick="openLightbox(this.src)">
+                <img src="A.jpg" class="gallery-img" alt="Troncs 1">
+                <img src="D.jpg" class="gallery-img" alt="Troncs 2">
+                <img src="F.jpg" class="gallery-img" alt="Troncs 3">
+                <img src="O.jpg" class="gallery-img" alt="Troncs 4">
+                <img src="G.jpg" class="gallery-img" alt="Troncs 5">
+                <img src="H.jpg" class="gallery-img" alt="Troncs 6">
+                <img src="L.jpg" class="gallery-img" alt="Troncs 7">
+                <img src="K.jpg" class="gallery-img" alt="Troncs 8">
+                <img src="M.jpg" class="gallery-img" alt="Troncs 9">
+                <img src="N.jpg" class="gallery-img" alt="Troncs 10">
+                <img src="J.jpg" class="gallery-img" alt="Troncs 11">
             </div>
             
-            <div id="lightbox">
+            <div id="lightbox" style="display: none;">
                 <span class="close" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
                 <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
             </div>
 
         </main>
     </div>
 
     <script>
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'block';
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 为所有图片绑定点击事件
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex'; // 使用 flex 使图片居中
+            document.body.style.overflow = 'hidden'; // 锁定背景滚动
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复滚动
         }
 
-        // 点击背景也可以关闭
-        document.getElementById('lightbox').onclick = function(e) {
+        function changeImage(step) {
+            currentIdx += step;
+            // 循环逻辑
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // 键盘控制
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // 点击背景关闭
+        lightbox.onclick = function(e) {
             if (e.target.id === 'lightbox') closeLightbox();
         }
     </script>
