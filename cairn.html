@@ -4,6 +4,85 @@
     <meta charset="UTF-8">
     <title>Jiankun Lou | CAIRN</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- 图片网格布局 --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 核心指令：每行平均分布 3 列 */
+            gap: 15px; /* 图片之间的间距 */
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px; /* 指令：固定缩略图高度，确保视觉对齐 */
+            object-fit: cover; /* 指令：图片等比裁剪填充，不拉伸变形 */
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-img:hover {
+            opacity: 0.8; /* 鼠标悬停时的半透明效果 */
+        }
+
+        /* --- 放大预览层 (Lightbox) 样式 --- */
+        #lightbox {
+            display: none; /* 初始状态：隐藏 */
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); /* 极简白色背景 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 85vh; /* 限制放大图高度，留出空间给关闭按钮 */
+            object-fit: contain; /* 确保图片完整显示 */
+        }
+
+        /* --- 导航按钮 (左右切换) --- */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 1001;
+            transition: color 0.3s;
+        }
+
+        .nav-btn:hover { color: #999; }
+        .prev-btn { left: 3%; } /* 左按钮位置 */
+        .next-btn { right: 3%; } /* 右按钮位置 */
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* --- 页面排版 --- */
+        .project-detail { text-align: center; }
+        .metadata { font-size: 0.75rem; color: #888; margin-bottom: 20px; }
+        .description { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            font-size: 0.85rem; 
+            line-height: 1.8; 
+            text-align: justify; 
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -19,27 +98,85 @@
 
         <main class="content">
             <section class="project-detail">
-                <h2 style="letter-spacing: 3px;">CAIRN</h2>
-                <p class="metadata" style="font-size: 0.75rem; color: #888; margin-bottom: 20px;">
-                    Papier de riz, encre de Chine, fil de coton, bois. <br>
-                    320cm x 110cm x 80cm, 2023.
+                <h2 style="letter-spacing: 3px; font-weight: 300;">CAIRN</h2>
+                <p class="metadata">
+                    papier journal recyclé, dimension variable, aout 2025
                 </p>
                 
-                <p class="description" style="max-width: 600px; font-size: 0.85rem; line-height: 1.8;">
-                    "CAIRN" explore la trace et la mémoire à travers la matérialité du papier de riz. 
-                    L'installation suspendue crée un dialogue entre le vide et la structure... (这里可以继续根据PDF翻译或精简内容)
+                <p class="description">
+                    Cette composition représente la forme d’un cairn. J’ai utilisé le moulage direct de roches en papier mâché.
+                    Dans la culture de la marche en montagne, le cairn est un repère et une trace. Il m’a rappelé également
+                    les murailles de prières tibétaines (mani stones, ou “do bang”), où les piérres portent des mantras gravés
+                    et deviennent des supports de foi.
                 </p>
 
-                <div class="work-item"><img src="5.jpg" alt="CAIRN Detail"></div>
-                <div class="work-item"><img src="6.jpg" alt="CAIRN Detail"></div>
-                <div class="work-item"><img src="8.jpg" alt="CAIRN Detail"></div>
-                <div class="work-item"><img src="9.jpg" alt="CAIRN Detail"></div>
-                <div class="work-item"><img src="16.jpg" alt="CAIRN Detail"></div>
-                <div class="work-item"><img src="17.jpg" alt="CAIRN Detail"></div>
-                <div class="work-item"><img src="18.jpg" alt="CAIRN Detail"></div>
-                <div class="work-item"><img src="20.jpg" alt="CAIRN Detail"></div>
-                </section>
+                <div class="image-grid">
+                    <img src="5.jpg" class="gallery-img" alt="CAIRN 1">
+                    <img src="6.jpg" class="gallery-img" alt="CAIRN 2">
+                    <img src="8.jpg" class="gallery-img" alt="CAIRN 3">
+                    <img src="9.jpg" class="gallery-img" alt="CAIRN 4">
+                    <img src="16.jpg" class="gallery-img" alt="CAIRN 5">
+                    <img src="17.jpg" class="gallery-img" alt="CAIRN 6">
+                    <img src="18.jpg" class="gallery-img" alt="CAIRN 7">
+                    <img src="20.jpg" class="gallery-img" alt="CAIRN 8">
+                </div>
+            </section>
+
+            <div id="lightbox">
+                <span class="close-btn" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button> <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button> </div>
         </main>
     </div>
+
+    <script>
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 绑定点击缩略图事件
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        // 打开预览
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+        }
+
+        // 关闭预览
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复滚动
+        }
+
+        // 切换逻辑
+        function changeImage(step) {
+            currentIdx += step;
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // 键盘交互
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // 点击背景空白区域关闭
+        lightbox.onclick = (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        };
+    </script>
 </body>
 </html>
