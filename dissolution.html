@@ -6,36 +6,96 @@
     <title>Jiankun Lou | La dissolution de l'histoire</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* 这里是缩小图片的魔法代码 */
-        .work-item img {
-            width: 75%;          /* 缩小到 75%，你可以根据需要改为 60% 或 80% */
-            max-width: 800px;    /* 限制在大屏幕上的最大宽度 */
-            height: auto;
-            display: block;      /* 块级显示 */
-            margin: 0 auto;      /* 核心：水平居中 */
+        /* --- 图片网格布局 (现在位于上方) --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 核心指令：一行三张 */
+            gap: 20px; /* 图片间距 */
+            max-width: 1000px;
+            margin: 0 auto 50px auto; /* 底部留出间距给文字 */
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 300px; /* 指令：固定高度使对齐整齐 */
+            object-fit: cover; /* 裁剪填充，防止变形 */
+            cursor: pointer;
             transition: opacity 0.3s ease;
         }
 
-        .work-item img:hover {
-            opacity: 0.8;        /* 鼠标悬停时变淡，增加交互感 */
+        .gallery-img:hover {
+            opacity: 0.8;
         }
 
-        .caption {
-            text-align: center;  /* 文字也跟着居中 */
-            margin-top: 20px;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            color: #666;
+        .work-item {
+            text-align: center;
+        }
+
+        /* --- 放大预览层 (Lightbox) --- */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        /* --- 导航按钮 --- */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+        }
+        .prev-btn { left: 3%; }
+        .next-btn { right: 3%; }
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 2.5rem; cursor: pointer; }
+
+        /* --- 文字内容排版 (现在位于下方) --- */
+        .project-footer {
+            max-width: 700px;
+            margin: 60px auto;
+            text-align: center;
+        }
+
+        .project-title {
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
         .description-text {
             font-size: 0.85rem;
             line-height: 1.8;
             color: #444;
-            margin-bottom: 80px;
-            max-width: 700px;
-            text-align: justify; /* 文字对齐更美观 */
+            text-align: justify; /* 文字对齐 */
         }
+
+        .caption-link {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: #888;
+            text-decoration: none;
+            display: block;
+        }
+        .caption-link:hover { color: #000; }
     </style>
 </head>
 <body>
@@ -46,8 +106,6 @@
                 <ul>
                     <li><a href="index.html#works">WORKS</a></li>
                     <li><a href="index.html#about">ABOUT</a></li>
-                    <li><a href="index.html#statement">STATEMENT</a></li>
-                    <li><a href="index.html#contact">CONTACT</a></li>
                 </ul>
             </nav>
         </aside>
@@ -57,37 +115,94 @@
                 <a href="index.html" style="font-size: 0.7rem; color: #999; text-decoration: none; letter-spacing: 1px;">← BACK TO ALL WORKS</a>
             </div>
 
-            <section class="gallery">
-                <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px;">La dissolution de l'histoire</h2>
-                
+            <div class="image-grid">
+                <div class="work-item">
+                    <img src="IMG_0690.JPG" class="gallery-img" alt="I">
+                    <a href="la dissolution de l'histoire I.html" class="caption-link">
+                        DISSOLUTION I <br> 详情 →
+                    </a>
+                </div>
+
+                <div class="work-item">
+                    <img src="IMG_0679.JPG" class="gallery-img" alt="II">
+                    <a href="la dissolution de l'histoire II.html" class="caption-link">
+                        DISSOLUTION II <br> 详情 →
+                    </a>
+                </div>
+
+                <div class="work-item">
+                    <img src="IMG_0692.JPG" class="gallery-img" alt="III">
+                    <a href="la dissolution de l'histoire III.html" class="caption-link">
+                        DISSOLUTION III <br> 详情 →
+                    </a>
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eee; width: 50px; margin: 40px auto;">
+
+            <section class="project-footer">
+                <h2 class="project-title">La dissolution de l'histoire</h2>
                 <div class="description-text">
                     Cette série s'inspire de poèmes anciens décrivant les paysages et les vicissitudes de la nature. 
                     À travers le processus de dissolution de l'encre sur le papier de riz, les mots deviennent illisibles, 
                     symbolisant une transition de la forme tangible vers l'intangible.
                 </div>
-
-                <div class="work-item" style="margin-bottom: 80px;">
-                    <a href="la dissolution de l'histoire I.html" style="text-decoration: none; color: inherit;">
-                        <img src="IMG_0690.JPG" alt="LA DISSOLUTION DE L'HISTOIRE I">
-                        <p class="caption">LA DISSOLUTION DE L'HISTOIRE I (2023) — Click to explore</p>
-                    </a>
-                </div>
-
-                <div class="work-item" style="margin-bottom: 80px;">
-                    <a href="la dissolution de l'histoire II.html" style="text-decoration: none; color: inherit;">
-                        <img src="IMG_0679.JPG" alt="La dissolution de l'histoire II">
-                        <p class="caption">LA DISSOLUTION DE L'HISTOIRE II (2023) — Click to explore</p>
-                    </a>
-                </div>
-
-                <div class="work-item" style="margin-bottom: 80px;">
-                    <a href="la dissolution de l'histoire III.html" style="text-decoration: none; color: inherit;">
-                        <img src="IMG_0692.JPG" alt="La dissolution de l'histoire III">
-                        <p class="caption">LA DISSOLUTION DE L'HISTOIRE III (2023) — Click to explore</p>
-                    </a>
-                </div>
             </section>
+
+            <div id="lightbox">
+                <span class="close-btn" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
+                <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
+            </div>
         </main>
     </div>
+
+    <script>
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 初始化：点击缩略图放大
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(step) {
+            currentIdx += step;
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // 键盘左右键
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // 点击背景关闭
+        lightbox.onclick = (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        };
+    </script>
 </body>
 </html>
