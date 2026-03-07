@@ -6,24 +6,24 @@
     <title>Jiankun Lou | LA DISSOLUTION DE L'HISTOIRE I</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* --- 整体布局控制 --- */
+        /* --- 整体两栏布局 --- */
         .project-container {
             display: flex;
-            gap: 50px;
+            gap: 60px; /* 两栏之间的间距 */
             align-items: flex-start;
             margin-top: 20px;
         }
 
         /* 左列：文字介绍 */
         .text-column {
-            flex: 1; /* 占据较小空间或等分 */
-            position: sticky; /* 滚动时文字可固定在上方 */
-            top: 20px;
+            flex: 1; /* 文字占 1 份空间 */
+            position: sticky; /* 滚动时文字固定 */
+            top: 40px;
         }
 
         /* 右列：照片区域 */
         .image-column {
-            flex: 2; /* 图片区域比例稍大 */
+            flex: 1.5; /* 照片占 1.5 份空间，比文字略宽，视觉更平衡 */
         }
 
         .description {
@@ -33,31 +33,30 @@
             color: #444;
         }
 
-        /* 标题和元数据移动到图片下方 */
-        .project-footer-info {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-
-        /* --- 图片网格布局 (右侧) --- */
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 每行三张 */
-            gap: 15px;
-            align-items: center;
+        /* --- 右侧图片数列布局 --- */
+        .image-list {
+            display: flex;
+            flex-direction: column; /* 数列排放 */
+            gap: 40px; /* 每张照片之间的垂直间距 */
         }
 
         .work-item img {
-            width: 100%;
-            max-height: 200px;
-            object-fit: contain;
+            width: 100%; /* 宽度自适应容器 */
+            height: auto;
+            display: block;
             cursor: pointer;
             transition: opacity 0.3s;
         }
 
         .work-item img:hover {
-            opacity: 0.8;
+            opacity: 0.9;
+        }
+
+        /* 标题信息放在右侧最下方 */
+        .project-footer-info {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
 
         /* --- 放大预览层 (Lightbox) --- */
@@ -75,7 +74,7 @@
 
         #lightbox img {
             max-width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             object-fit: contain;
         }
 
@@ -91,10 +90,11 @@
         .prev-btn { left: 5%; }
         .next-btn { right: 5%; }
 
-        /* 响应式：在窄屏下回归单列 */
+        /* 响应式：窄屏下改为单列 */
         @media (max-width: 900px) {
-            .project-container { flex-direction: column; }
-            .image-grid { grid-template-columns: repeat(2, 1fr); }
+            .project-container { flex-direction: column; gap: 40px; }
+            .text-column { position: static; }
+            .image-column { width: 100%; }
         }
     </style>
 </head>
@@ -122,7 +122,8 @@
                         poème décrit principalement les paysages des
                         montagnes et des rivières que l'auteur avait vu et ses
                         réflexions sur les vicissitudes de la nature et des
-                        affaires humaines. Et l’autre poème il décrit le
+                        affaires humaines. <br><br>
+                        Et l’autre poème il décrit le
                         paysage que le poète avait vu en marchant sur le
                         chemin la nuit, il y a la lune claire, les pies, la brise, le
                         parfum des fleurs de riz, les cris des cigales et des
@@ -132,17 +133,12 @@
                         dissous dans l’eau au dessus, et en laissant une trace
                         si abstraite après séchage. Je pense que ça se
                         représente une transition de la forme tangible vers
-                        l’intangible. <br><br>
-                        Cette sculpture en céramique c’est ce que je voudrais
-                        réaliser le processus en espace tridimensionnel, et je
-                        l'ai transformé cette perception du processus de
-                        dissolution et des traces sous la forme d'une ligne
-                        abstraite.
+                        l’intangible.
                     </p>
                 </div>
 
                 <div class="image-column">
-                    <div class="image-grid">
+                    <div class="image-list">
                         <div class="work-item"><img src="IMG_0670.JPG" alt="Detail 1"></div>
                         <div class="work-item"><img src="IMG_0690.JPG" alt="Detail 2"></div>
                         <div class="work-item"><img src="IMG_0698.JPG" alt="Detail 3"></div>
