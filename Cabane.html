@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Jiankun Lou | Cabane sur l'eau</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- 图片网格布局 --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 核心指令：每行平均分布 3 列 */
+            gap: 15px; /* 图片之间的间距 */
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 300px; /* 指令：固定缩略图高度（蓝晒法作品通常比例固定，300px 较合适） */
+            object-fit: cover; /* 指令：图片等比裁剪填充，确保整齐 */
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-grid img:hover {
+            opacity: 0.8; /* 鼠标悬停透明度变化 */
+        }
+
+        /* --- 放大预览层 (Lightbox) 样式 --- */
+        #lightbox {
+            display: none; /* 初始隐藏 */
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); /* 极简白背景 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80vh; /* 限制放大图高度 */
+            object-fit: contain; /* 保证显示完整图片 */
+        }
+
+        /* --- 左右导航与关闭按钮 --- */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 1001;
+        }
+
+        .prev-btn { left: 3%; } /* 左侧切换按钮 */
+        .next-btn { right: 3%; } /* 右侧切换按钮 */
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* --- 文本排版 --- */
+        .metadata {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .project-description {
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
+        }
+
+        .caption {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h1><a href="index.html" style="text-decoration:none; color:inherit;">JIANKUN LOU</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html#works">← BACK TO WORKS</a></li>
+                    <li><a href="index.html#about">ABOUT</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">Cabane sur l'eau</h2>
+            
+            <p class="metadata">
+                Papier mâché, encre de Chine, 31x35cm, 19x16cm, 2026
+            </p>
+            
+            <div class="project-description">
+                Dans l’ensemble de ce travail, l’eau devient un fil conducteur reliant les différentes parties. J’ai également dessiné des reflets, des surfaces d’eau à l’encre sur le papier que je fabrique. Pour moi, ces papiers ne sont pas seulement des supports de traces, mais deviennent des champs de génération de l’image. Ici, l’image n’est plus un objet représenté ou reproduit, mais le résultat d’un processus de transformation, de sédimentation et de contact entre matériaux. Lorsque j’observe les reflets à la surface du lac, je pense à l’histoire de cette île : il y a plus de soixante-dix ans, un village se trouvait sous ces eaux. Ainsi, dans le dessin, j’ai remplacé les reflets de l’eau par des éléments de tentes issus de mon projet de diplôme, afin de superposer mémoire, réalité et imaginaire dans un même espace.
+            </div>
+
+            <div class="image-grid">
+                <img src="IMG_3073.JPEG" class="gallery-img" alt="Cabane sur l'eau 1">
+                <img src="IMG_3074.JPEG" class="gallery-img" alt="Cabane sur l'eau 1">
+                <img src="IMG_3075.JPEG" class="gallery-img" alt="Cabane sur l'eau 1">
+                <img src="IMG_3084.JPEG" class="gallery-img" alt="Cabane sur l'eau 1">
+            </div>
+
+            <p class="caption">Cabane sur l'eau, Papier mâché, encre de Chine, 31x35cm, 19x16cm, 2026</p>
+            
+            <div id="lightbox">
+                <span class="close-btn" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button> <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button> </div>
+
+        </main>
+    </div>
+
+    <script>
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 初始化：点击缩略图打开放大层
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 锁定背景滚动
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复滚动
+        }
+
+        // 切换图片逻辑 (循环模式)
+        function changeImage(step) {
+            currentIdx += step;
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // 键盘交互：支持左右箭头和 Esc 键
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // 点击黑色背景区域自动关闭
+        lightbox.onclick = (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        };
+    </script>
+</body>
+</html>
