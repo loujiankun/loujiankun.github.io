@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Jiankun Lou | Roche</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 网格布局：每行三张 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 300px; /* 统一高度，更整齐 */
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-grid img:hover {
+            opacity: 0.8;
+        }
+
+        /* 灯箱 (Lightbox) 样式 */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); /* 极简白背景 */
+            display: none; /* 初始隐藏 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            user-select: none;
+        }
+
+        /* 左右导航按钮 */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 1001;
+            user-select: none;
+        }
+
+        .prev-btn { left: 5%; }
+        .next-btn { right: 5%; }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .project-description {
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
+        }
+
+        .metadata {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h1><a href="index.html" style="text-decoration:none; color:inherit;">JIANKUN LOU</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html#works">← BACK TO WORKS</a></li>
+                    <li><a href="index.html#about">ABOUT</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">Roche</h2>
+            
+            <p class="metadata">
+                Roche en papier mâché de journaux, 210x80x110cm, vue d'installation au sol, avril 2026
+            </p>
+            
+            <div class="project-description">
+               Suivant cette même démarche, j’ai réalisé l’empreinte d’une roche d’environ deux mètres de diamètre. Face à la complexité de sa surface et à la profondeur de ses anfractuosités, j’ai procédé par fragments avant de les réassembler. Cette roche étant à l'origine partiellement ancrée dans le sol, l’œuvre finale prend la forme d’une « roche en papier » dont la base tronquée témoigne de son incomplétude primitive. Cette configuration donne ainsi l'illusion que la roche est délicatement posée à la surface de l'eau.
+            </div>
+
+            <div class="image-grid">
+                <img src="IMG_2079.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3080.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3082.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3728.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3729.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3178.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3705.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3712.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3095.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3176.JPEG" class="gallery-img" alt="Roche 1">
+                <img src="IMG_3177.JPEG" class="gallery-img" alt="Roche 1">
+            </div>
+            
+            <div id="lightbox" style="display: none;">
+                <span class="close-btn" onclick="closeLightbox()">&times;</span>
+                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
+                <img id="lightbox-img" src="">
+                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        let currentIdx = 0;
+        const images = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 为每张缩略图绑定点击事件
+        images.forEach((img, index) => {
+            img.onclick = () => {
+                currentIdx = index;
+                openLightbox();
+            };
+        });
+
+        function openLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(step) {
+            currentIdx += step;
+            // 循环逻辑：最后一张点下一张回第一张
+            if (currentIdx >= images.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = images.length - 1;
+            lightboxImg.src = images[currentIdx].src;
+        }
+
+        // 键盘左右键控制
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // 点击背景关闭
+        lightbox.onclick = (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        };
+    </script>
+</body>
+</html>
