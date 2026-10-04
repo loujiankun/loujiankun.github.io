@@ -1,172 +1,341 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jiankun Lou | Une marche dans la montagne</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Jiankun Lou | Une marche dans la montagne
+    </title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* --- [指令：图片网格布局 (顶部)] --- */
+
+        /* 图片网格：电脑端每行三件作品 */
+
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 核心：一行三张 */
-            gap: 30px; /* 增加间距，让居中对齐更有呼吸感 */
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 30px;
             max-width: 1000px;
-            margin: 0 auto 60px auto;
-            
-            /* [指令：核心魔法 - 让同一行所有内容垂直居中对齐] */
-            align-items: center; 
+            margin: 0 0 30px 0;
+            align-items: center;
         }
 
-        .work-item {
-            text-align: center;
-            /* 确保 work-item 自身在 grid 单元格中居中 */
+        /*
+        清除 style.css 中 .work-item 原来的
+        margin-bottom: 120px
+        */
+
+        .image-grid .work-item {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
-        }
-
-        /* --- [指令：作为链接的图片样式] --- */
-        .work-item a {
-            text-decoration: none;
-            display: block;
-            width: 100%; /* 链接占满宽度 */
-        }
-
-        .gallery-img {
-            /* [指令：缩小照片比例的关键] */
-            width: auto;         /* 宽度自动，保持比例 */
-            max-width: 100%;     /* 限制最大宽度，不能超出单元格 */
-            
-            /* [指令：统一限制最大高度，防止竖图过高] */
-            max-height: 220px;   
-            
-            /* [指令：不再裁剪，完整显示图片内容] */
-            object-fit: contain; 
-            
-            /* 居中显示图片 */
-            margin: 0 auto;
-            display: block;
-
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        /* 鼠标悬停在图片或文字链接上时，图片变淡 */
-        .work-item a:hover .gallery-img {
-            opacity: 0.7;
-            transform: scale(1.02); /* 增加微小的放大效果 */
-        }
-
-        /* --- 文字内容排版 (底部) --- */
-        .project-info {
-            max-width: 700px;
-            margin: 60px auto;
+            max-width: none;
+            margin-bottom: 0;
             text-align: center;
         }
 
+        .work-item a {
+            display: block;
+            width: 100%;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .gallery-img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            max-height: 220px;
+            margin: 0 auto;
+            object-fit: contain;
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .work-item a:hover .gallery-img {
+            opacity: 0.7;
+            transform: scale(1.02);
+        }
+
+        /* 图片下方的小标题 */
+
+        .caption-link {
+            display: block;
+            margin-top: 15px;
+            color: #999;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .work-item a:hover .caption-link {
+            color: #000;
+        }
+
+        /* 左对齐的分隔线 */
+
+        .project-separator {
+            width: 50px;
+            margin: 30px 0 30px 0;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
+
+        /* 下方系列介绍 */
+
+        .project-info {
+            max-width: 700px;
+            margin: 0 0 80px 0;
+            text-align: left;
+        }
+
         .project-title {
+            margin-top: 0;
+            margin-bottom: 25px;
             font-weight: 300;
             letter-spacing: 3px;
-            margin-bottom: 25px;
+            text-align: left;
             text-transform: uppercase;
         }
 
         .description-text {
+            color: #444;
             font-size: 0.85rem;
             line-height: 1.8;
-            color: #444;
-            text-align: justify; /* 两端对齐更专业 */
+            text-align: left;
         }
 
-        /* 图片下方的链接文字 */
-        .caption-link {
-            margin-top: 15px;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            color: #999;
-            text-decoration: none;
-            display: block;
-            text-transform: uppercase;
-            transition: color 0.3s;
+        .description-text p {
+            margin-top: 0;
+            margin-bottom: 22px;
         }
-        
-        /* 悬停时文字变黑 */
-        .work-item a:hover .caption-link {
-            color: #000;
+
+        /* 手机端 */
+
+        @media (max-width: 768px) {
+
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 25px;
+            }
+
+            .gallery-img {
+                width: 100%;
+                max-height: none;
+            }
+
+            .project-info {
+                margin-bottom: 60px;
+            }
+
         }
+
     </style>
+
 </head>
+
 <body>
+
     <div class="container">
+
         <aside class="sidebar">
-            <h1><a href="index.html" style="text-decoration: none; color: inherit;">JIANKUN LOU</a></h1>
+
+            <h1>
+                <a href="index.html"
+                   style="text-decoration: none; color: inherit;">
+                    JIANKUN LOU
+                </a>
+            </h1>
+
             <nav>
                 <ul>
-                    <li><a href="index.html#works">WORKS</a></li>
-                    <li><a href="index.html#about">ABOUT</a></li>
+
+                    <li>
+                        <a href="index.html#works">
+                            WORKS
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="index.html#about">
+                            ABOUT
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
+
         </aside>
 
         <main class="content">
-            <div style="margin-bottom: 40px;">
-                <a href="index.html" style="font-size: 0.7rem; color: #999; text-decoration: none; letter-spacing: 1px;">← BACK TO ALL WORKS</a>
+
+            <div style="margin-bottom: 30px;">
+
+                <a href="index.html"
+                   style="font-size: 0.7rem;
+                          color: #999;
+                          text-decoration: none;
+                          letter-spacing: 1px;">
+                    ← BACK TO ALL WORKS
+                </a>
+
             </div>
+
+            <!-- 五个作品在上 -->
 
             <div class="image-grid">
-                
+
                 <div class="work-item">
+
                     <a href="cairn.html">
-                        <img src="20.jpg" class="gallery-img" alt="Cairn">
-                        <span class="caption-link">I. CAIRN →</span>
+
+                        <img src="20.jpg"
+                             class="gallery-img"
+                             alt="Cairn">
+
+                        <span class="caption-link">
+                            I. CAIRN →
+                        </span>
+
                     </a>
+
                 </div>
 
                 <div class="work-item">
+
                     <a href="mur.html">
-                        <img src="34.jpg" class="gallery-img" alt="Mur">
-                        <span class="caption-link">II. MUR →</span>
+
+                        <img src="34.jpg"
+                             class="gallery-img"
+                             alt="Mur">
+
+                        <span class="caption-link">
+                            II. MUR →
+                        </span>
+
                     </a>
+
                 </div>
 
                 <div class="work-item">
+
                     <a href="orgue.html">
-                        <img src="36.jpg" class="gallery-img" alt="Orgue">
-                        <span class="caption-link">III. ORGUE →</span>
+
+                        <img src="36.jpg"
+                             class="gallery-img"
+                             alt="Orgue">
+
+                        <span class="caption-link">
+                            III. ORGUE →
+                        </span>
+
                     </a>
+
                 </div>
 
                 <div class="work-item">
+
                     <a href="deux montagne.html">
-                        <img src="19.jpg" class="gallery-img" alt="Deux montagne">
-                        <span class="caption-link">IV. DEUX MONTAGNE →</span>
+
+                        <img src="19.jpg"
+                             class="gallery-img"
+                             alt="Deux montagnes">
+
+                        <span class="caption-link">
+                            IV. DEUX MONTAGNES →
+                        </span>
+
                     </a>
+
                 </div>
 
                 <div class="work-item">
+
                     <a href="chemin.html">
-                        <img src="31.jpg" class="gallery-img" alt="Chemin">
-                        <span class="caption-link">V. CHEMIN →</span>
+
+                        <img src="31.jpg"
+                             class="gallery-img"
+                             alt="Chemin">
+
+                        <span class="caption-link">
+                            V. CHEMIN →
+                        </span>
+
                     </a>
+
                 </div>
-                
+
             </div>
 
-            <hr style="border: 0; border-top: 1px solid #eee; width: 50px; margin: 40px auto;">
+            <hr class="project-separator">
+
+            <!-- 系列标题和介绍在下 -->
 
             <section class="project-info">
-                <h2 class="project-title">Une marche dans la montagne</h2>
+
+                <h2 class="project-title">
+                    Une marche dans la montagne
+                </h2>
+
                 <div class="description-text">
-                    L’inspiration de ce projet vient d’une expérience de marche en montagne. La marche n’est pas seulement une activité physique, mais une manière de percevoir. Le souffle et le pas suivent les variations du relief ; le corps s’ajuste au rythme de la nature.
-                    <br><br>
-                    Comme l’a écrit Maurice Merleau-Ponty, la perception n’est pas une simple vision, mais une relation incarnée entre le corps et le monde. Dans la marche, mes sens se sont mêlés à la respiration de la montagne, à la texture des roches, aux changements de vent et de brouillard.
-                    <br><br>
-                    J’ai utilisé le papier comme matériau principal. À la fois fragile et résistant, il porte des strates et des empreintes complexes. Ses fibres et textures évoquent le brouillard et la roche des montagnes. Le support n’est pas un simple médium, mais une manière de prolonger la pensée du monde. Ici, le papier devient un traducteur de la montagne, une surface sensible capable de garder la mémoire de la marche. La fragilité de la matière représente la fragilité de la nature.
+
+                    <p>
+                        L’inspiration de ce projet vient d’une
+                        expérience de marche en montagne. La marche
+                        n’est pas seulement une activité physique,
+                        mais une manière de percevoir. Le souffle et
+                        le pas suivent les variations du relief ;
+                        le corps s’ajuste au rythme de la nature.
+                    </p>
+
+                    <p>
+                        Comme l’a écrit Maurice Merleau-Ponty, la
+                        perception n’est pas une simple vision, mais
+                        une relation incarnée entre le corps et le
+                        monde. Dans la marche, mes sens se sont mêlés
+                        à la respiration de la montagne, à la texture
+                        des roches et aux changements du vent et du
+                        brouillard.
+                    </p>
+
+                    <p>
+                        J’ai utilisé le papier comme matériau
+                        principal. À la fois fragile et résistant,
+                        il porte des strates et des empreintes
+                        complexes. Ses fibres et ses textures évoquent
+                        le brouillard et la roche des montagnes.
+                        Le support n’est pas un simple médium, mais
+                        une manière de prolonger la pensée du monde.
+                    </p>
+
+                    <p>
+                        Ici, le papier devient un traducteur de la
+                        montagne, une surface sensible capable de
+                        conserver la mémoire de la marche. La
+                        fragilité de la matière fait également écho
+                        à celle de la nature.
+                    </p>
+
                 </div>
+
             </section>
 
         </main>
+
     </div>
+
 </body>
+
 </html>
