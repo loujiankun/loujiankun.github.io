@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Jiankun Lou | CHEMIN</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Jiankun Lou | Chemin</title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* --- 图片网格布局 --- */
+
+        /* 图片网格：电脑端每行三张 */
+
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 核心指令：每行平均分布 3 列 */
-            gap: 15px; /* 图片之间的间距 */
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
             max-width: 1000px;
-            margin: 40px auto;
+            margin: 0 0 60px 0;
+            align-items: center;
         }
 
         .gallery-img {
+            display: block;
             width: 100%;
-            height: 250px; /* 指令：固定缩略图高度，确保视觉对齐 */
-            object-fit: cover; /* 指令：图片等比裁剪填充，不拉伸变形 */
+            height: 250px;
+            object-fit: contain;
             cursor: pointer;
             transition: opacity 0.3s ease;
         }
@@ -26,14 +38,54 @@
             opacity: 0.8;
         }
 
-        /* --- 放大预览层 (Lightbox) 样式 --- */
+        /* 下方文字 */
+
+        .project-info {
+            max-width: 700px;
+            margin: 0 0 100px 0;
+        }
+
+        .project-title {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .metadata {
+            margin: 0 0 30px 0;
+            color: #888;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .description {
+            margin: 0;
+            color: #444;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .description p {
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        /* 图片放大预览 */
+
         #lightbox {
-            display: none; /* 初始隐藏 */
+            display: none;
             position: fixed;
-            z-index: 1000;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(255, 255, 255, 0.98); /* 极简白背景 */
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -41,139 +93,327 @@
 
         #lightbox img {
             max-width: 90%;
-            max-height: 85vh; /* 限制大图高度 */
-            object-fit: contain; /* 确保显示完整图片 */
+            max-height: 85vh;
+            object-fit: contain;
+            user-select: none;
         }
 
-        /* --- 导航按钮 (左右切换) --- */
         .nav-btn {
             position: absolute;
+            z-index: 2001;
             top: 50%;
-            transform: translateY(-50%);
-            font-size: 2.5rem;
-            color: #333;
-            background: none;
-            border: none;
-            cursor: pointer;
             padding: 20px;
-            z-index: 1001;
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transform: translateY(-50%);
             transition: color 0.3s;
         }
 
-        .nav-btn:hover { color: #999; }
-        .prev-btn { left: 3%; } /* 上一张按钮 */
-        .next-btn { right: 3%; } /* 下一张按钮 */
+        .nav-btn:hover {
+            color: #999;
+        }
+
+        .prev-btn {
+            left: 3%;
+        }
+
+        .next-btn {
+            right: 3%;
+        }
 
         .close-btn {
             position: absolute;
-            top: 20px; right: 30px;
+            top: 20px;
+            right: 30px;
+            color: #333;
             font-size: 2.5rem;
             cursor: pointer;
-            color: #333;
         }
 
-        /* --- 页面文本排版 --- */
-        .project-detail { text-align: center; }
-        .metadata { font-size: 0.75rem; color: #888; margin-bottom: 20px; }
-        .description { 
-            max-width: 600px; 
-            margin: 0 auto; 
-            font-size: 0.85rem; 
-            line-height: 1.8; 
-            text-align: justify; 
+        /* 手机端 */
+
+        @media (max-width: 768px) {
+
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 50px;
+            }
+
+            .gallery-img {
+                height: auto;
+                max-height: none;
+            }
+
+            .project-info {
+                margin-bottom: 60px;
+            }
+
+            .close-btn {
+                top: 15px;
+                right: 20px;
+            }
+
+            .prev-btn {
+                left: 0;
+            }
+
+            .next-btn {
+                right: 0;
+            }
+
         }
+
     </style>
+
 </head>
+
 <body>
+
     <div class="container">
+
         <aside class="sidebar">
-            <h1><a href="index.html" style="text-decoration:none; color:inherit;">JIANKUN LOU</a></h1>
+
+            <h1>
+                <a href="index.html"
+                   style="text-decoration: none; color: inherit;">
+                    JIANKUN LOU
+                </a>
+            </h1>
+
             <nav>
                 <ul>
-                    <li><a href="une marche dans la montagne.html">← BACK TO SERIES</a></li>
-                    <li><a href="index.html#about">ABOUT</a></li>
+
+                    <li>
+                        <a href="une marche dans la montagne.html">
+                            ← BACK TO SERIES
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="index.html#about">
+                            ABOUT
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
+
         </aside>
 
         <main class="content">
+
             <section class="project-detail">
-                <h2 style="letter-spacing: 3px; font-weight: 300;">CHEMIN</h2>
-                <p class="metadata">
-                    papier journal recyclé, 257cm*166cm*116cm, aout 2025
-                </p>
-                
-                <p class="description">
-                    Cette pièce traduit l’impression d’une montagne mémorisée. J’ai construit une structure de bois et de grillage métallique, que j’ai recouverte de papier mâché. Chaque jointure a été conservée, évoquant les sentiers sinueux laissés par les marcheurs. Après j’ai ré-humidifié ces “sentiers” la couleur a été plus foncée, et puis elle s'est effacée doucement en séchant. Si les pas disparaissent, les chemins s’effaceront lentement, comme une mémoire fragile. 
-                    <br><br>
-                    Cela m'a rappelé également "A Line Made by Walking" de Richard Long. Ce geste de humidifier m'a rappelé également les "Dàye" (les aînés) en Chine qui pratiquent la calligraphie au sol avec un gros pinceau et de l’eau : les mots s'évaporent lentement en pratiquant.
-                </p>
+
+                <!-- 图片在上 -->
 
                 <div class="image-grid">
-                    <img src="31.jpg" class="gallery-img" alt="CHEMIN Detail 1">
-                    <img src="4.jpg" class="gallery-img" alt="CHEMIN Detail 2">
-                    <img src="2.jpg" class="gallery-img" alt="CHEMIN Detail 3">
-                    <img src="7.jpg" class="gallery-img" alt="CHEMIN Detail 4">
-                    <img src="1.jpg" class="gallery-img" alt="CHEMIN Detail 5">
-                    <img src="13.jpg" class="gallery-img" alt="CHEMIN Detail 6">
+
+                    <img src="31.jpg"
+                         class="gallery-img"
+                         alt="Chemin — vue 1">
+
+                    <img src="4.jpg"
+                         class="gallery-img"
+                         alt="Chemin — vue 2">
+
+                    <img src="2.jpg"
+                         class="gallery-img"
+                         alt="Chemin — vue 3">
+
+                    <img src="7.jpg"
+                         class="gallery-img"
+                         alt="Chemin — vue 4">
+
+                    <img src="1.jpg"
+                         class="gallery-img"
+                         alt="Chemin — vue 5">
+
+                    <img src="13.jpg"
+                         class="gallery-img"
+                         alt="Chemin — vue 6">
+
                 </div>
+
+                <!-- 文字在下 -->
+
+                <div class="project-info">
+
+                    <h2 class="project-title">
+                        Chemin
+                    </h2>
+
+                    <p class="metadata">
+                        Pâte à papier issue de journaux recyclés,
+                        bois et grillage métallique
+                        <br>
+                        257 × 166 × 116 cm, août 2025
+                    </p>
+
+                    <div class="description">
+
+                        <p>
+                            Cette œuvre traduit l’impression d’une
+                            montagne conservée en mémoire. J’ai
+                            construit une structure en bois et en
+                            grillage métallique, que j’ai ensuite
+                            recouverte de pâte à papier. Chaque
+                            jointure a été laissée visible, évoquant
+                            les sentiers sinueux tracés par le passage
+                            des marcheurs.
+                        </p>
+
+                        <p>
+                            J’ai ensuite réhumidifié ces « sentiers ».
+                            Au contact de l’eau, la couleur du papier
+                            est devenue plus foncée, puis s’est
+                            progressivement éclaircie au cours du
+                            séchage. Lorsque les pas disparaissent,
+                            les chemins s’effacent lentement, comme
+                            une mémoire fragile.
+                        </p>
+
+                        <p>
+                            Ce travail fait écho à
+                            <em>A Line Made by Walking</em> de
+                            Richard Long. Le geste d’humidification
+                            me rappelle également la calligraphie à
+                            l’eau pratiquée dans les espaces publics
+                            en Chine : des personnes âgées écrivent
+                            sur le sol avec de grands pinceaux
+                            imbibés d’eau, puis les caractères
+                            s’évaporent progressivement.
+                        </p>
+
+                    </div>
+
+                </div>
+
             </section>
 
-            <div id="lightbox">
-                <span class="close-btn" onclick="closeLightbox()">&times;</span>
-                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button> <img id="lightbox-img" src="">
-                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button> </div>
         </main>
+
+    </div>
+
+    <!-- 图片放大预览 -->
+
+    <div id="lightbox">
+
+        <span class="close-btn"
+              onclick="closeLightbox()">
+            &times;
+        </span>
+
+        <button class="nav-btn prev-btn"
+                type="button"
+                onclick="changeImage(-1)"
+                aria-label="Image précédente">
+            &#10094;
+        </button>
+
+        <img id="lightbox-img"
+             src=""
+             alt="Agrandissement de l’œuvre">
+
+        <button class="nav-btn next-btn"
+                type="button"
+                onclick="changeImage(1)"
+                aria-label="Image suivante">
+            &#10095;
+        </button>
+
     </div>
 
     <script>
+
         let currentIdx = 0;
-        const images = document.querySelectorAll('.gallery-img');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
 
-        // 1. 初始化：为所有缩略图绑定点击事件
+        const images =
+            document.querySelectorAll('.gallery-img');
+
+        const lightbox =
+            document.getElementById('lightbox');
+
+        const lightboxImg =
+            document.getElementById('lightbox-img');
+
         images.forEach((img, index) => {
-            img.onclick = () => {
+
+            img.addEventListener('click', () => {
+
                 currentIdx = index;
+
                 openLightbox();
-            };
+
+            });
+
         });
 
-        // 2. 打开放大层
         function openLightbox() {
+
             lightboxImg.src = images[currentIdx].src;
+
+            lightboxImg.alt = images[currentIdx].alt;
+
             lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+
+            document.body.style.overflow = 'hidden';
+
         }
 
-        // 3. 关闭放大层
         function closeLightbox() {
+
             lightbox.style.display = 'none';
-            document.body.style.overflow = 'auto'; // 恢复滚动
+
+            document.body.style.overflow = 'auto';
+
         }
 
-        // 4. 切换图片逻辑 (循环模式)
         function changeImage(step) {
-            currentIdx += step;
-            if (currentIdx >= images.length) currentIdx = 0;
-            if (currentIdx < 0) currentIdx = images.length - 1;
+
+            currentIdx =
+                (currentIdx + step + images.length)
+                % images.length;
+
             lightboxImg.src = images[currentIdx].src;
+
+            lightboxImg.alt = images[currentIdx].alt;
+
         }
 
-        // 5. 键盘交互控制 (左右按键)
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', event => {
+
             if (lightbox.style.display === 'flex') {
-                if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'ArrowRight') changeImage(1);
-                if (e.key === 'Escape') closeLightbox();
+
+                if (event.key === 'ArrowLeft') {
+                    changeImage(-1);
+                }
+
+                if (event.key === 'ArrowRight') {
+                    changeImage(1);
+                }
+
+                if (event.key === 'Escape') {
+                    closeLightbox();
+                }
+
             }
+
         });
 
-        // 6. 点击背景空白处关闭
-        lightbox.onclick = (e) => {
-            if (e.target.id === 'lightbox') closeLightbox();
-        };
+        lightbox.addEventListener('click', event => {
+
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+
+        });
+
     </script>
+
 </body>
+
 </html>
