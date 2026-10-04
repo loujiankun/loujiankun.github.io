@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Jiankun Lou | MUR</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Jiankun Lou | Mur</title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* --- 图片网格布局 --- */
+
+        /* 图片网格：电脑端每行三张 */
+
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 核心指令：每行平均分布 3 列 */
-            gap: 15px; /* 图片之间的间距 */
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
             max-width: 1000px;
-            margin: 40px auto;
+            margin: 0 0 60px 0;
+            align-items: center;
         }
 
         .gallery-img {
+            display: block;
             width: 100%;
-            height: 250px; /* 同一高度使对齐 */
-            object-fit: cover; /* 裁剪填充，确保比例整齐 */
+            height: 250px;
+            object-fit: contain;
             cursor: pointer;
             transition: opacity 0.3s ease;
         }
@@ -26,13 +38,53 @@
             opacity: 0.8;
         }
 
-        /* --- 放大预览层 (Lightbox) --- */
+        /* 下方文字 */
+
+        .project-info {
+            max-width: 700px;
+            margin: 0 0 100px 0;
+        }
+
+        .project-title {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .metadata {
+            margin: 0 0 30px 0;
+            color: #888;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .description {
+            margin: 0;
+            color: #444;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .description p {
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        /* 图片放大预览 */
+
         #lightbox {
             display: none;
             position: fixed;
-            z-index: 1000;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-color: rgba(255, 255, 255, 0.98);
             flex-direction: column;
             justify-content: center;
@@ -43,129 +95,301 @@
             max-width: 90%;
             max-height: 85vh;
             object-fit: contain;
+            user-select: none;
         }
 
-        /* --- 导航按钮 --- */
         .nav-btn {
             position: absolute;
+            z-index: 2001;
             top: 50%;
-            transform: translateY(-50%);
-            font-size: 2.5rem;
-            color: #333;
-            background: none;
-            border: none;
-            cursor: pointer;
             padding: 20px;
-            z-index: 1001;
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transform: translateY(-50%);
         }
 
-        .prev-btn { left: 3%; } /* 上一张 */
-        .next-btn { right: 3%; } /* 下一张 */
+        .prev-btn {
+            left: 3%;
+        }
+
+        .next-btn {
+            right: 3%;
+        }
 
         .close-btn {
             position: absolute;
-            top: 20px; right: 30px;
+            top: 20px;
+            right: 30px;
+            color: #333;
             font-size: 2.5rem;
             cursor: pointer;
-            color: #333;
         }
 
-        /* --- 页面排版 --- */
-        .project-detail { text-align: center; }
-        .metadata { font-size: 0.75rem; color: #888; margin-bottom: 20px; }
-        .description { 
-            max-width: 600px; 
-            margin: 0 auto; 
-            font-size: 0.85rem; 
-            line-height: 1.8; 
-            text-align: justify; 
+        /* 手机端 */
+
+        @media (max-width: 768px) {
+
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 50px;
+            }
+
+            .gallery-img {
+                height: auto;
+                max-height: none;
+            }
+
+            .project-info {
+                margin-bottom: 60px;
+            }
+
+            .close-btn {
+                top: 15px;
+                right: 20px;
+            }
+
+            .prev-btn {
+                left: 0;
+            }
+
+            .next-btn {
+                right: 0;
+            }
+
         }
+
     </style>
+
 </head>
+
 <body>
+
     <div class="container">
+
         <aside class="sidebar">
-            <h1><a href="index.html" style="text-decoration:none; color:inherit;">JIANKUN LOU</a></h1>
+
+            <h1>
+                <a href="index.html"
+                   style="text-decoration: none; color: inherit;">
+                    JIANKUN LOU
+                </a>
+            </h1>
+
             <nav>
                 <ul>
-                    <li><a href="une marche dans la montagne.html">← BACK TO SERIES</a></li>
-                    <li><a href="index.html#about">ABOUT</a></li>
+
+                    <li>
+                        <a href="une marche dans la montagne.html">
+                            ← BACK TO SERIES
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="index.html#about">
+                            ABOUT
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
+
         </aside>
 
         <main class="content">
+
             <section class="project-detail">
-                <h2 style="letter-spacing: 3px; font-weight: 300;">MUR</h2>
-                <p class="metadata">
-                    papier journal recyclé, dimension variable, aout 2025
-                </p>
-                
-                <p class="description">
-                    Cette pièce de moulages des roches en papier représentent à la fois le “négatif” de la roche et une tentative de traduire la dimension spirituelle de la montagne. J’ai utilisé la pâte du papier et les pierres pour faire un mur, après j’ai enlevées les pierres et gardé cette pièce comme ‘un mur négatif’. Cette approche prolonge l’intérêt de Richard Long ou Andy Goldsworthy pour les pierres, les traces et l’expérience du paysage.
-                </p>
+
+                <!-- 图片在上 -->
 
                 <div class="image-grid">
-                    <img src="27.jpg" class="gallery-img" alt="MUR 1">
-                    <img src="34.jpg" class="gallery-img" alt="MUR 2">
-                    <img src="10.jpg" class="gallery-img" alt="MUR 3">
+
+                    <img src="27.jpg"
+                         class="gallery-img"
+                         alt="Mur — vue 1">
+
+                    <img src="34.jpg"
+                         class="gallery-img"
+                         alt="Mur — vue 2">
+
+                    <img src="10.jpg"
+                         class="gallery-img"
+                         alt="Mur — vue 3">
+
                 </div>
+
+                <!-- 文字在下 -->
+
+                <div class="project-info">
+
+                    <h2 class="project-title">
+                        Mur
+                    </h2>
+
+                    <p class="metadata">
+                        Moulages directs de roches en pâte à papier
+                        issue de journaux recyclés
+                        <br>
+                        Dimensions variables, août 2025
+                    </p>
+
+                    <div class="description">
+
+                        <p>
+                            Cette pièce, constituée de moulages directs
+                            de roches en papier, présente à la fois le
+                            « négatif » de la pierre et une tentative
+                            de traduire la dimension spirituelle de la
+                            montagne.
+                        </p>
+
+                        <p>
+                            J’ai disposé des pierres afin de construire
+                            une forme de mur, puis je les ai recouvertes
+                            de pâte à papier. Après le séchage, j’ai
+                            retiré les pierres et conservé leurs
+                            empreintes. Il ne reste ainsi qu’un
+                            « mur négatif », marqué par la présence
+                            désormais absente des roches.
+                        </p>
+
+                        <p>
+                            Cette approche prolonge une réflexion sur
+                            les pierres, les traces et l’expérience du
+                            paysage. Elle peut également faire écho
+                            aux démarches de Richard Long et d’Andy
+                            Goldsworthy.
+                        </p>
+
+                    </div>
+
+                </div>
+
             </section>
 
-            <div id="lightbox">
-                <span class="close-btn" onclick="closeLightbox()">&times;</span>
-                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
-                <img id="lightbox-img" src="">
-                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
-            </div>
         </main>
+
+    </div>
+
+    <!-- 图片放大预览 -->
+
+    <div id="lightbox">
+
+        <span class="close-btn"
+              onclick="closeLightbox()">
+            &times;
+        </span>
+
+        <button class="nav-btn prev-btn"
+                type="button"
+                onclick="changeImage(-1)"
+                aria-label="Image précédente">
+            &#10094;
+        </button>
+
+        <img id="lightbox-img"
+             src=""
+             alt="Agrandissement de l’œuvre">
+
+        <button class="nav-btn next-btn"
+                type="button"
+                onclick="changeImage(1)"
+                aria-label="Image suivante">
+            &#10095;
+        </button>
+
     </div>
 
     <script>
-        let currentIdx = 0;
-        const images = document.querySelectorAll('.gallery-img');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
 
-        // 初始化图片点击事件
+        let currentIdx = 0;
+
+        const images =
+            document.querySelectorAll('.gallery-img');
+
+        const lightbox =
+            document.getElementById('lightbox');
+
+        const lightboxImg =
+            document.getElementById('lightbox-img');
+
         images.forEach((img, index) => {
-            img.onclick = () => {
+
+            img.addEventListener('click', () => {
+
                 currentIdx = index;
+
                 openLightbox();
-            };
+
+            });
+
         });
 
         function openLightbox() {
+
             lightboxImg.src = images[currentIdx].src;
+
+            lightboxImg.alt = images[currentIdx].alt;
+
             lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // 锁定背景滚动
+
+            document.body.style.overflow = 'hidden';
+
         }
 
         function closeLightbox() {
+
             lightbox.style.display = 'none';
-            document.body.style.overflow = 'auto'; // 恢复滚动
+
+            document.body.style.overflow = 'auto';
+
         }
 
         function changeImage(step) {
-            currentIdx += step;
-            if (currentIdx >= images.length) currentIdx = 0;
-            if (currentIdx < 0) currentIdx = images.length - 1;
+
+            currentIdx =
+                (currentIdx + step + images.length)
+                % images.length;
+
             lightboxImg.src = images[currentIdx].src;
+
+            lightboxImg.alt = images[currentIdx].alt;
+
         }
 
-        // 键盘控制：左右键切换，Esc键关闭
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', event => {
+
             if (lightbox.style.display === 'flex') {
-                if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'ArrowRight') changeImage(1);
-                if (e.key === 'Escape') closeLightbox();
+
+                if (event.key === 'ArrowLeft') {
+                    changeImage(-1);
+                }
+
+                if (event.key === 'ArrowRight') {
+                    changeImage(1);
+                }
+
+                if (event.key === 'Escape') {
+                    closeLightbox();
+                }
+
             }
+
         });
 
-        // 点击背景关闭
-        lightbox.onclick = (e) => {
-            if (e.target.id === 'lightbox') closeLightbox();
-        };
+        lightbox.addEventListener('click', event => {
+
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+
+        });
+
     </script>
+
 </body>
+
 </html>
