@@ -1,140 +1,346 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Jiankun Lou | Artist</title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* 默认隐藏所有板块，除了 WORKS */
+        /* 默认隐藏所有板块 */
         .content-section {
             display: none;
         }
-        #works {
-            display: block; /* 初始显示作品页 */
+
+        /* 普通文字板块 */
+        .content-section.active {
+            display: block;
         }
+
+        /* WORKS：电脑端每行两个作品 */
+        #works.active {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 40px;
+            row-gap: 80px;
+        }
+
+        /* 覆盖 style.css 中原来的作品间距 */
+        #works .work-item {
+            width: 100%;
+            max-width: none;
+            margin-bottom: 0;
+        }
+
+        #works .work-item a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        #works .work-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
         .text-content {
             max-width: 700px;
             line-height: 1.8;
             font-size: 0.9rem;
             color: #333;
         }
+
+        /* 手机端：每行一个作品 */
+        @media (max-width: 768px) {
+            #works.active {
+                grid-template-columns: 1fr;
+                row-gap: 60px;
+            }
+        }
     </style>
 </head>
+
 <body>
+
     <div class="container">
+
         <aside class="sidebar">
-            <h1><a href="javascript:void(0)" onclick="showSection('works')" style="text-decoration: none; color: inherit;">JIANKUN LOU</a></h1>
+
+            <h1>
+                <a href="#works"
+                   style="text-decoration: none; color: inherit;">
+                    JIANKUN LOU
+                </a>
+            </h1>
+
             <nav>
                 <ul>
-                    <li><a href="javascript:void(0)" onclick="showSection('works')">WORKS</a></li>
-                    <li><a href="javascript:void(0)" onclick="showSection('about')">ABOUT</a></li>
-                    <li><a href="javascript:void(0)" onclick="showSection('statement')">STATEMENT</a></li>
-                    <li><a href="javascript:void(0)" onclick="showSection('contact')">CONTACT</a></li>
+                    <li>
+                        <a href="#works">WORKS</a>
+                    </li>
+
+                    <li>
+                        <a href="#about">ABOUT</a>
+                    </li>
+
+                    <li>
+                        <a href="#statement">STATEMENT</a>
+                    </li>
+
+                    <li>
+                        <a href="#contact">CONTACT</a>
+                    </li>
                 </ul>
             </nav>
+
         </aside>
 
         <main class="content">
+
+            <!-- WORKS -->
             <section id="works" class="content-section gallery">
+
                 <div class="work-item">
-                    <a href="dans-la-foret.html" style="text-decoration: none; color: inherit;">
-                        <img src="IMG_2128.JPEG" alt="Dans la forêt">
-                        <p class="caption"><strong>DANS LA FORÊT</strong><br>Installation / Recherche, 2026</p>
-                    </a>
-                </div>
-                
-                <div class="work-item">
-                    <a href="une marche dans la montagne.html" style="text-decoration: none; color: inherit;">     
-                        <img src="IMG_7323.JPG" alt="Contempler">
-                        <p class="caption">见山, 见水, 见自己<br>Contempler la montagne, contempler l’eau, se contempler soi-même, 2025</p>
+                    <a href="dans-la-foret.html">
+
+                        <img src="IMG_2128.JPEG"
+                             alt="Dans la forêt">
+
+                        <p class="caption">
+                            <strong>DANS LA FORÊT</strong>
+                            <br>
+                            Installation / Recherche, 2026
+                        </p>
+
                     </a>
                 </div>
 
                 <div class="work-item">
-                    <a href="paysage-reconstruit.html" style="text-decoration: none; color: inherit;">
-                        <img src="IMG_9234.JPG" alt="Un paysage reconstruit">
-                        <p class="caption"><strong>UN PAYSAGE RECONSTRUIT</strong><br>Série d'installations, 2025</p>
+                    <a href="une marche dans la montagne.html">
+
+                        <img src="IMG_7323.JPG"
+                             alt="Contempler la montagne, contempler l’eau, se contempler soi-même">
+
+                        <p class="caption">
+                            见山, 见水, 见自己
+                            <br>
+                            Contempler la montagne, contempler l’eau,
+                            se contempler soi-même, 2025
+                        </p>
+
                     </a>
                 </div>
 
                 <div class="work-item">
-                    <a href="dissolution.html" style="text-decoration: none; color: inherit;">
-                        <img src="IMG_0697.JPG" alt="Dissolution">
-                        <p class="caption">La dissolution de l'histoire, installation, 2023</p>
+                    <a href="paysage-reconstruit.html">
+
+                        <img src="IMG_9234.JPG"
+                             alt="Un paysage reconstruit">
+
+                        <p class="caption">
+                            <strong>UN PAYSAGE RECONSTRUIT</strong>
+                            <br>
+                            Série d’installations, 2025
+                        </p>
+
                     </a>
                 </div>
+
+                <div class="work-item">
+                    <a href="dissolution.html">
+
+                        <img src="IMG_0697.JPG"
+                             alt="La dissolution de l’histoire">
+
+                        <p class="caption">
+                            <strong>LA DISSOLUTION DE L’HISTOIRE</strong>
+                            <br>
+                            Installation, 2023
+                        </p>
+
+                    </a>
+                </div>
+
             </section>
 
+            <!-- ABOUT -->
             <section id="about" class="content-section">
+
                 <h2>ABOUT</h2>
+
                 <div class="text-content">
-                    <p>Yan LOU est un artiste plasticien chinois installé en France depuis 2020. Diplômé du
-DNSEP de l’École nationale supérieure d’art et de design de Limoges (ENSAD
-Limoges) en 2025, il développe une pratique de la sculpture, de l’installation et du
-dessin à partir de pâte à papier issue de journaux recyclés constitue son matériau
-principal.
-À travers le moulage, l’empreinte et la transformation de la matière, son travail
-explore les liens entre paysage, mémoire et temporalité. Le papier devient un support
-sensible capable d’enregistrer les traces des formes naturelles, des gestes et du
-temps. Sa démarche s’inscrit dans une recherche autour des processus de
-transformation, où l’observation, la marche et l’expérimentation nourrissent une
-réflexion sur notre perception du paysage. Ses œuvres explorent ainsi la manière
-dont les formes naturelles portent les marques du temps et font dialoguer la matière,
-le paysage et l’expérience humaine.
-Après un échange à l’Académie des Beaux-Arts de Munich (AdBK München), il
-poursuit ses recherches en France à travers diﬀérentes résidences, expositions et
-projets artistiques, notamment au Moulin du Got dans le cadre du programme ARC-
-Chromoculture de l’ENSAD Limoges en 2025, à Lavitrine (Limoges) en 2025, ainsi
-qu’au Centre international d’art et du paysage de l’Île de Vassivière en 2026 dans le
-cadre du programme TREMPLIN ENSAD. La même année, son travail reçoit le
-deuxième prix du Premi Antoni Vila Casas–Ynglada-Guillot à Barcelone.</p>
-                   
+
+                    <p>
+                        Yan LOU est un artiste plasticien chinois installé en
+                        France depuis 2020. Diplômé du DNSEP de l’École nationale
+                        supérieure d’art et de design de Limoges (ENSAD Limoges)
+                        en 2025, il développe une pratique de la sculpture, de
+                        l’installation et du dessin, dans laquelle la pâte à
+                        papier issue de journaux recyclés constitue son matériau
+                        principal.
+                    </p>
+
+                    <p>
+                        À travers le moulage, l’empreinte et la transformation
+                        de la matière, son travail explore les liens entre
+                        paysage, mémoire et temporalité. Le papier devient un
+                        support sensible capable d’enregistrer les traces des
+                        formes naturelles, des gestes et du temps.
+                    </p>
+
+                    <p>
+                        Sa démarche s’inscrit dans une recherche autour des
+                        processus de transformation, où l’observation, la marche
+                        et l’expérimentation nourrissent une réflexion sur notre
+                        perception du paysage. Ses œuvres explorent ainsi la
+                        manière dont les formes naturelles portent les marques
+                        du temps et font dialoguer la matière, le paysage et
+                        l’expérience humaine.
+                    </p>
+
+                    <p>
+                        Après un échange à l’Académie des Beaux-Arts de Munich
+                        (AdBK München), il poursuit ses recherches en France à
+                        travers différentes résidences, expositions et projets
+                        artistiques, notamment au Moulin du Got dans le cadre du
+                        programme ARC-Chromoculture de l’ENSAD Limoges en 2025,
+                        à Lavitrine (Limoges) en 2025, ainsi qu’au Centre
+                        international d’art et du paysage de l’Île de Vassivière
+                        en 2026 dans le cadre du programme TREMPLIN ENSAD.
+                        La même année, son travail reçoit le deuxième prix du
+                        Premi Antoni Vila Casas–Ynglada-Guillot à Barcelone.
+                    </p>
+
                 </div>
+
             </section>
 
+            <!-- STATEMENT -->
             <section id="statement" class="content-section">
+
                 <h2>STATEMENT</h2>
+
                 <div class="text-content">
-                    <p>Je travaille principalement à partir de pâte à papier issue de journaux recyclés. Le papier, porteur d’informations sociales vouées à devenir rapidement obsolètes, est transformé en une matière grise et presque minérale. Il conserve néanmoins la mémoire de son origine, tout en acquérant une nouvelle temporalité.
 
-À travers le moulage direct, l’empreinte, l’immersion, le séchage et la recomposition, je mets cette matière en contact avec des arbres, des roches, l’eau et différents éléments du paysage. Les traces de l’écorce, du relief, des gestes et des dépôts s’inscrivent progressivement dans le papier. Je considère ces transformations comme une forme de « chrono-transformation » : le temps n’est pas représenté, mais agit directement dans la formation de l’œuvre.
+                    <p>
+                        Je travaille principalement à partir de pâte à papier
+                        issue de journaux recyclés. Le papier, porteur
+                        d’informations sociales vouées à devenir rapidement
+                        obsolètes, est transformé en une matière grise et presque
+                        minérale. Il conserve néanmoins la mémoire de son origine,
+                        tout en acquérant une nouvelle temporalité.
+                    </p>
 
-La marche occupe également une place importante dans mon travail. Elle constitue une manière de percevoir le territoire par le corps, d’en recueillir les formes et d’en éprouver les changements. Le paysage n’est ainsi pas envisagé comme une image à reproduire, mais comme un espace de contact, de mémoire et de transformation.
+                    <p>
+                        À travers le moulage direct, l’empreinte, l’immersion,
+                        le séchage et la recomposition, je mets cette matière en
+                        contact avec des arbres, des roches, l’eau et différents
+                        éléments du paysage. Les traces de l’écorce, du relief,
+                        des gestes et des dépôts s’inscrivent progressivement
+                        dans le papier.
+                    </p>
 
-Dans certains projets, la déconstruction de caractères chinois, notamment 家 — la maison — et 木 — l’arbre — fait apparaître des formes élémentaires telles que la cabane, la tente ou la forêt. Entre matière, langage et paysage, le papier devient une surface sensible sur laquelle l’image émerge comme le résultat d’un processus.</p>
-                    
+                    <p>
+                        Je considère ces transformations comme une forme de
+                        « chrono-transformation » : le temps n’est pas représenté,
+                        mais agit directement dans la formation de l’œuvre.
+                    </p>
+
+                    <p>
+                        La marche occupe également une place importante dans mon
+                        travail. Elle constitue une manière de percevoir le
+                        territoire par le corps, d’en recueillir les formes et
+                        d’en éprouver les changements. Le paysage n’est ainsi
+                        pas envisagé comme une image à reproduire, mais comme un
+                        espace de contact, de mémoire et de transformation.
+                    </p>
+
+                    <p>
+                        Dans certains projets, la déconstruction de caractères
+                        chinois, notamment 家 — la maison — et 木 — l’arbre —
+                        fait apparaître des formes élémentaires telles que la
+                        cabane, la tente ou la forêt. Entre matière, langage et
+                        paysage, le papier devient une surface sensible sur
+                        laquelle l’image émerge comme le résultat d’un processus.
+                    </p>
+
                 </div>
+
             </section>
 
+            <!-- CONTACT -->
             <section id="contact" class="content-section">
+
                 <h2>CONTACT</h2>
+
                 <div class="text-content">
-                    <p>Email: <a href="mailto:louyanart@gmail.com">louyanart@gmail.com</a></p>
-                    <p>Téléphone: +33 06 38 20 93 06</p>
-                    <p>Instagram: <a href="https://instagram.com/loujiankun" target="_blank">loujiankun</a></p>
+
+                    <p>
+                        Email:
+                        <a href="mailto:louyanart@gmail.com">
+                            louyanart@gmail.com
+                        </a>
+                    </p>
+
+                    <p>
+                        Téléphone:
+                        <a href="tel:+33638209306">
+                            +33 6 38 20 93 06
+                        </a>
+                    </p>
+
+                    <p>
+                        Instagram:
+                        <a href="https://instagram.com/loujiankun"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            loujiankun
+                        </a>
+                    </p>
+
                 </div>
+
             </section>
+
         </main>
+
     </div>
 
     <script>
         function showSection(sectionId) {
-            // 隐藏所有 section
             const sections = document.querySelectorAll('.content-section');
-            sections.forEach(sec => {
-                sec.style.display = 'none';
+
+            sections.forEach(section => {
+                section.classList.remove('active');
             });
-            
-            // 显示点击的那个 section
+
             const target = document.getElementById(sectionId);
+
             if (target) {
-                target.style.display = 'block';
+                target.classList.add('active');
+            } else {
+                document.getElementById('works').classList.add('active');
             }
-            
-            // 滚动回顶部
+
             window.scrollTo(0, 0);
         }
+
+        function showSectionFromHash() {
+            const sectionId = window.location.hash.substring(1) || 'works';
+
+            showSection(sectionId);
+        }
+
+        window.addEventListener('DOMContentLoaded', showSectionFromHash);
+
+        window.addEventListener('hashchange', showSectionFromHash);
     </script>
+
 </body>
+
 </html>
