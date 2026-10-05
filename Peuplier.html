@@ -1,39 +1,93 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Jiankun Lou | L’ombre-du-peuplier-courbe</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Jiankun Lou | L’Ombre du peuplier courbe
+    </title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* 网格布局：一行三张 */
+
+        /* 图片网格：电脑端每行三张 */
+
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 0 0 60px 0;
+            align-items: center;
         }
 
-        .image-grid img {
+        .gallery-img {
+            display: block;
             width: 100%;
             height: 250px;
-            object-fit: cover;
+            object-fit: contain;
             cursor: pointer;
             transition: opacity 0.3s ease;
         }
 
-        .image-grid img:hover {
+        .gallery-img:hover {
             opacity: 0.8;
         }
 
-        /* 放大层样式 (Lightbox) */
+        /* 下方文字 */
+
+        .project-info {
+            max-width: 700px;
+            margin: 0 0 100px 0;
+        }
+
+        .project-title {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .metadata {
+            margin: 0 0 30px 0;
+            color: #888;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .project-description {
+            margin: 0;
+            color: #444;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .project-description p {
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        /* 图片放大预览 */
+
         #lightbox {
             display: none;
             position: fixed;
-            z-index: 1000;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(255, 255, 255, 0.98); /* 极简白色背景 */
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -41,152 +95,343 @@
 
         #lightbox img {
             max-width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             object-fit: contain;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            user-select: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
         }
 
-        /* 导航按钮样式 */
         .nav-btn {
             position: absolute;
+            z-index: 2001;
             top: 50%;
-            transform: translateY(-50%);
-            font-size: 2.5rem;
-            color: #333;
-            background: none;
-            border: none;
-            cursor: pointer;
             padding: 20px;
-            user-select: none;
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transform: translateY(-50%);
             transition: color 0.3s;
         }
 
-        .nav-btn:hover { color: #999; }
-        .prev-btn { left: 3%; }
-        .next-btn { right: 3%; }
+        .nav-btn:hover {
+            color: #999;
+        }
+
+        .prev-btn {
+            left: 3%;
+        }
+
+        .next-btn {
+            right: 3%;
+        }
 
         .close {
             position: absolute;
             top: 20px;
             right: 30px;
+            color: #333;
             font-size: 35px;
             cursor: pointer;
-            color: #333;
         }
 
-        .metadata {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #888;
-            margin-bottom: 20px;
-            line-height: 1.6;
+        /* 手机端 */
+
+        @media (max-width: 768px) {
+
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 50px;
+            }
+
+            .gallery-img {
+                height: auto;
+                max-height: none;
+            }
+
+            .project-info {
+                margin-bottom: 60px;
+            }
+
+            .close {
+                top: 15px;
+                right: 20px;
+            }
+
+            .prev-btn {
+                left: 0;
+            }
+
+            .next-btn {
+                right: 0;
+            }
+
         }
 
-        .project-description {
-            max-width: 700px;
-            margin: 0 auto 60px auto;
-            font-size: 0.85rem;
-            line-height: 1.8;
-            color: #444;
-            text-align: justify;
-        }
     </style>
+
 </head>
+
 <body>
+
     <div class="container">
+
         <aside class="sidebar">
-            <h1><a href="index.html" style="text-decoration:none; color:inherit;">JIANKUN LOU</a></h1>
+
+            <h1>
+                <a href="index.html"
+                   style="text-decoration: none; color: inherit;">
+                    JIANKUN LOU
+                </a>
+            </h1>
+
             <nav>
                 <ul>
-                    <li><a href="index.html#works">← BACK TO WORKS</a></li>
-                    <li><a href="index.html#about">ABOUT</a></li>
+
+                    <li>
+                        <a href="dans-la-foret.html">
+                            ← BACK TO SERIES
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="index.html#about">
+                            ABOUT
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
+
         </aside>
 
         <main class="content">
-            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">L’ombre-du-peuplier-courbe</h2>
-            
-            <p class="metadata">
-                Papier mâché, pierres, 290 × 53 × 35 cm, avril 2026 <br>
-            </p>
-            
-            <div class="project-description">
-                Lors d’une balade dans la forêt de l’île de Vassivière, j’ai découvert un peuplier à la forme courbe, qui se distinguished parmi les troncs droits et verticaux de la forêt. 
-                J’ai séparé son tronc en deux sections pour en prélever des empreintes en pâte à papier, afin d’en conserver la texture. Au fil du processus, les traces des gestes des doigts se mêlent à celles de l’écorce, faisant dialoguer la mémoire du corps et celle de l’arbre. 
-                Une fois séchées, les empreintes ont été décollées, réassemblées, puis installées dans l’espace, où elles prolongent la présence de l’arbre sous une autre forme.
-            </div>
 
-            <div class="image-grid">
-                <img src="IMG_2134.JPEG" class="gallery-img" alt="Troncs 1">
-                <img src="IMG_2138.JPEG" class="gallery-img" alt="Troncs 2">
-                <img src="IMG_3328.JPEG" class="gallery-img" alt="Troncs 3">
-                <img src="IMG_3402.JPEG" class="gallery-img" alt="Troncs 4">
-                <img src="IMG_3039.JPEG" class="gallery-img" alt="Troncs 5">
-                <img src="IMG_3053.JPEG" class="gallery-img" alt="Troncs 6">
-                <img src="IMG_3480.JPEG" class="gallery-img" alt="Troncs 7">
-                <img src="IMG_3493.JPEG" class="gallery-img" alt="Troncs 8">
-                <img src="IMG_3105.JPEG" class="gallery-img" alt="Troncs 9">
-                <img src="IMG_3514.JPEG" class="gallery-img" alt="Troncs 10">
-                <img src="IMG_3169.JPEG" class="gallery-img" alt="Troncs 11">
-            </div>
-            
-            <div id="lightbox" style="display: none;">
-                <span class="close" onclick="closeLightbox()">&times;</span>
-                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
-                <img id="lightbox-img" src="">
-                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
-            </div>
+            <section class="project-detail">
+
+                <!-- 图片在上 -->
+
+                <div class="image-grid">
+
+                    <img src="IMG_2134.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 1">
+
+                    <img src="IMG_2138.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 2">
+
+                    <img src="IMG_3328.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 3">
+
+                    <img src="IMG_3402.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 4">
+
+                    <img src="IMG_3039.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 5">
+
+                    <img src="IMG_3053.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 6">
+
+                    <img src="IMG_3480.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 7">
+
+                    <img src="IMG_3493.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 8">
+
+                    <img src="IMG_3105.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 9">
+
+                    <img src="IMG_3514.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 10">
+
+                    <img src="IMG_3169.JPEG"
+                         class="gallery-img"
+                         alt="L’Ombre du peuplier courbe — vue 11">
+
+                </div>
+
+                <!-- 文字在下 -->
+
+                <div class="project-info">
+
+                    <h2 class="project-title">
+                        L’Ombre du peuplier courbe
+                    </h2>
+
+                    <p class="metadata">
+                        Pâte à papier issue de journaux recyclés
+                        et pierres
+                        <br>
+                        290 × 53 × 35 cm, avril 2026
+                    </p>
+
+                    <div class="project-description">
+
+                        <p>
+                            Lors d’une marche dans la forêt de l’Île
+                            de Vassivière, j’ai découvert un peuplier
+                            à la forme courbe, qui se distinguait
+                            parmi les troncs droits et verticaux.
+                        </p>
+
+                        <p>
+                            J’ai réalisé une empreinte directe de son
+                            tronc en deux parties, en appliquant de la
+                            pâte à papier sur sa surface. L’intérieur
+                            de la sculpture conserve la texture de
+                            l’écorce, tandis que l’extérieur porte les
+                            traces et les reliefs produits par mes
+                            doigts. Les gestes de la main répondent
+                            ainsi aux formes de l’arbre.
+                        </p>
+
+                        <p>
+                            Après le séchage, les deux empreintes ont
+                            été retirées du tronc, puis réassemblées.
+                            Installée en équilibre sur des pierres,
+                            l’œuvre prolonge la présence et la
+                            silhouette de l’arbre sous une autre
+                            forme, comme une ombre grise déposée dans
+                            le paysage.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
 
         </main>
+
+    </div>
+
+    <!-- 图片放大预览 -->
+
+    <div id="lightbox">
+
+        <span class="close"
+              onclick="closeLightbox()">
+            &times;
+        </span>
+
+        <button class="nav-btn prev-btn"
+                type="button"
+                onclick="changeImage(-1)"
+                aria-label="Image précédente">
+            &#10094;
+        </button>
+
+        <img id="lightbox-img"
+             src=""
+             alt="Agrandissement de l’œuvre">
+
+        <button class="nav-btn next-btn"
+                type="button"
+                onclick="changeImage(1)"
+                aria-label="Image suivante">
+            &#10095;
+        </button>
+
     </div>
 
     <script>
-        let currentIdx = 0;
-        const images = document.querySelectorAll('.gallery-img');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
 
-        // 为所有图片绑定点击事件
+        let currentIdx = 0;
+
+        const images =
+            document.querySelectorAll('.gallery-img');
+
+        const lightbox =
+            document.getElementById('lightbox');
+
+        const lightboxImg =
+            document.getElementById('lightbox-img');
+
         images.forEach((img, index) => {
-            img.onclick = () => {
+
+            img.addEventListener('click', () => {
+
                 currentIdx = index;
+
                 openLightbox();
-            };
+
+            });
+
         });
 
         function openLightbox() {
+
             lightboxImg.src = images[currentIdx].src;
-            lightbox.style.display = 'flex'; // 使用 flex 使图片居中
-            document.body.style.overflow = 'hidden'; // 锁定背景滚动
+
+            lightboxImg.alt = images[currentIdx].alt;
+
+            lightbox.style.display = 'flex';
+
+            document.body.style.overflow = 'hidden';
+
         }
 
         function closeLightbox() {
+
             lightbox.style.display = 'none';
-            document.body.style.overflow = 'auto'; // 恢复滚动
+
+            document.body.style.overflow = 'auto';
+
         }
 
         function changeImage(step) {
-            currentIdx += step;
-            // 循环逻辑
-            if (currentIdx >= images.length) currentIdx = 0;
-            if (currentIdx < 0) currentIdx = images.length - 1;
+
+            currentIdx =
+                (currentIdx + step + images.length)
+                % images.length;
+
             lightboxImg.src = images[currentIdx].src;
+
+            lightboxImg.alt = images[currentIdx].alt;
+
         }
 
-        // 键盘控制
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', event => {
+
             if (lightbox.style.display === 'flex') {
-                if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'ArrowRight') changeImage(1);
-                if (e.key === 'Escape') closeLightbox();
+
+                if (event.key === 'ArrowLeft') {
+                    changeImage(-1);
+                }
+
+                if (event.key === 'ArrowRight') {
+                    changeImage(1);
+                }
+
+                if (event.key === 'Escape') {
+                    closeLightbox();
+                }
+
             }
+
         });
 
-        // 点击背景关闭
-        lightbox.onclick = function(e) {
-            if (e.target.id === 'lightbox') closeLightbox();
-        }
+        lightbox.addEventListener('click', event => {
+
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+
+        });
+
     </script>
+
 </body>
+
 </html>
