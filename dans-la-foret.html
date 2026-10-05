@@ -1,148 +1,334 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Jiankun Lou | Dans la forêt</title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* --- 图片网格布局 --- */
+
+        /* 图片网格：电脑端每行三件作品 */
+
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 每行三列 */
-            gap: 40px 20px; /* 上下间距40px，左右间距20px */
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 35px 20px;
             max-width: 1000px;
-            margin: 0 auto 50px auto;
-            align-items: center; /* 让同一行的内容垂直居中对齐 */
+            margin: 0 0 30px 0;
+            align-items: center;
         }
 
-        .work-item {
-            text-align: center;
+        /*
+        清除 style.css 中 .work-item 原来的
+        margin-bottom: 120px
+        */
+
+        .image-grid .work-item {
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-
-        .gallery-img {
             width: 100%;
-            max-height: 250px; /* 限制最高高度 */
-            object-fit: contain; /* 保证图片比例完整，不被裁剪 */
-            transition: opacity 0.3s ease;
-            display: block;
-            margin: 0 auto;
+            max-width: none;
+            margin-bottom: 0;
+            text-align: center;
         }
 
         .work-item a {
-            text-decoration: none;
-            color: inherit;
             display: block;
+            width: 100%;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .gallery-img {
+            display: block;
+            width: 100%;
+            max-height: 250px;
+            margin: 0 auto;
+            object-fit: contain;
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
         }
 
         .work-item a:hover .gallery-img {
             opacity: 0.7;
+            transform: scale(1.02);
         }
 
-        /* --- 文字内容排版 --- */
+        /* 图片下方的作品标题 */
+
+        .caption-link {
+            display: block;
+            margin: 15px 0 0 0;
+            color: #999;
+            font-size: 0.7rem;
+            line-height: 1.5;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .work-item a:hover .caption-link {
+            color: #000;
+        }
+
+        /* 左对齐的分隔线 */
+
+        .project-separator {
+            width: 50px;
+            margin: 30px 0;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
+
+        /* 下方系列介绍 */
+
         .project-info {
             max-width: 700px;
-            margin: 60px auto;
-            text-align: center;
+            margin: 0 0 80px 0;
+            text-align: left;
         }
 
         .project-title {
+            margin-top: 0;
+            margin-bottom: 25px;
             font-weight: 300;
             letter-spacing: 3px;
-            margin-bottom: 25px;
+            text-align: left;
             text-transform: uppercase;
         }
 
         .description-text {
+            color: #444;
             font-size: 0.85rem;
             line-height: 1.8;
-            color: #444;
-            text-align: justify;
+            text-align: left;
         }
 
-        .caption-link {
-            margin-top: 15px;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            color: #999;
-            text-transform: uppercase;
-            transition: color 0.3s;
+        .description-text p {
+            margin-top: 0;
+            margin-bottom: 22px;
         }
-        
-        .work-item a:hover .caption-link {
-            color: #000;
+
+        /* 手机端 */
+
+        @media (max-width: 768px) {
+
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 25px;
+            }
+
+            .gallery-img {
+                width: 100%;
+                max-height: none;
+            }
+
+            .project-info {
+                margin-bottom: 60px;
+            }
+
         }
+
     </style>
+
 </head>
+
 <body>
+
     <div class="container">
+
         <aside class="sidebar">
-            <h1><a href="index.html" style="text-decoration: none; color: inherit;">JIANKUN LOU</a></h1>
+
+            <h1>
+                <a href="index.html"
+                   style="text-decoration: none; color: inherit;">
+                    JIANKUN LOU
+                </a>
+            </h1>
+
             <nav>
                 <ul>
-                    <li><a href="index.html#works">WORKS</a></li>
-                    <li><a href="index.html#about">ABOUT</a></li>
+
+                    <li>
+                        <a href="index.html#works">
+                            WORKS
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="index.html#about">
+                            ABOUT
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
+
         </aside>
 
         <main class="content">
-            <div style="margin-bottom: 40px;">
-                <a href="index.html" style="font-size: 0.7rem; color: #999; text-decoration: none; letter-spacing: 1px;">← BACK TO ALL WORKS</a>
+
+            <div style="margin-bottom: 30px;">
+
+                <a href="index.html"
+                   style="font-size: 0.7rem;
+                          color: #999;
+                          text-decoration: none;
+                          letter-spacing: 1px;">
+                    ← BACK TO ALL WORKS
+                </a>
+
             </div>
 
+            <!-- 作品图片在上 -->
+
             <div class="image-grid">
+
                 <div class="work-item">
-                    <!-- 避开了单引号/特殊字符，避免 404 -->
+
                     <a href="Peuplier.html">
-                        <img src="IMG_3328.JPEG" class="gallery-img" alt="L'ombre-du-peuplier-courbe">
-                        <p class="caption-link">I. L'ombre-du-peuplier-courbe (2026) →</p>
+
+                        <img src="IMG_3328.JPEG"
+                             class="gallery-img"
+                             alt="L’Ombre du peuplier courbe">
+
+                        <p class="caption-link">
+                            I. L’Ombre du peuplier courbe (2026) →
+                        </p>
+
                     </a>
+
                 </div>
 
                 <div class="work-item">
+
                     <a href="Roche.html">
-                        <img src="IMG_2078.JPEG" class="gallery-img" alt="Roche">
-                        <p class="caption-link">II. Roche (2026) →</p>
+
+                        <img src="IMG_2078.JPEG"
+                             class="gallery-img"
+                             alt="Roche en papier">
+
+                        <p class="caption-link">
+                            II. Roche en papier (2026) →
+                        </p>
+
                     </a>
+
                 </div>
 
                 <div class="work-item">
+
                     <a href="Dessin-au-charbon.html">
-                        <img src="IMG_2346.JPEG" class="gallery-img" alt="Dessin du forêt au charbon">
-                        <p class="caption-link">III. Dessin du forêt au charbon (2026) →</p>
+
+                        <img src="IMG_2346.JPEG"
+                             class="gallery-img"
+                             alt="Dessin de forêt au charbon">
+
+                        <p class="caption-link">
+                            III. Dessin de forêt au charbon (2026) →
+                        </p>
+
                     </a>
+
                 </div>
 
                 <div class="work-item">
+
                     <a href="Au-bord-de-lac.html">
-                        <img src="IMG_3067.JPEG" class="gallery-img" alt="Au-bord-de-lac">
-                        <p class="caption-link">IV. Au-bord-de-lac (2026) →</p>
+
+                        <img src="IMG_3067.JPEG"
+                             class="gallery-img"
+                             alt="Au bord du lac">
+
+                        <p class="caption-link">
+                            IV. Au bord du lac (2026) →
+                        </p>
+
                     </a>
+
                 </div>
 
                 <div class="work-item">
-                    <a href="Cabane.html">
-                        <img src="IMG_3073.JPEG" class="gallery-img" alt="Cabane">
-                        <p class="caption-link">V. CABANE SUR l'EAU (2026) →</p>
-                    </a>
-                </div>
-            </div> <!-- 补上了原先漏掉的闭合标签 -->
 
-            <hr style="border: 0; border-top: 1px solid #eee; width: 50px; margin: 40px auto;">
+                    <a href="Cabane.html">
+
+                        <img src="IMG_3073.JPEG"
+                             class="gallery-img"
+                             alt="Cabane sur l’eau">
+
+                        <p class="caption-link">
+                            V. Cabane sur l’eau (2026) →
+                        </p>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <hr class="project-separator">
+
+            <!-- 系列介绍在下 -->
 
             <section class="project-info">
-                <h2 class="project-title">DANS LA FORÊT</h2>
+
+                <h2 class="project-title">
+                    Dans la forêt
+                </h2>
+
                 <div class="description-text">
-                    Cette série s'inspire de poèmes anciens décrivant les paysages et les vicissitudes de la nature. 
-                    À travers le processus de dissolution de l'encre sur le papier de riz, les mots deviennent illisibles, 
-                    symbolisant une transition de la forme tangible vers l'intangible.
+
+                    <p>
+                        Ce projet a été développé lors d’une résidence
+                        au Centre international d’art et du paysage de
+                        l’Île de Vassivière. Il est né de marches et
+                        d’observations réalisées dans la forêt, au bord
+                        du lac et sur différents sites de l’île.
+                    </p>
+
+                    <p>
+                        À partir de pâte à papier issue de journaux
+                        recyclés, j’ai réalisé des moulages directs
+                        d’un tronc et d’une roche, façonné de petites
+                        pierres en papier, puis expérimenté différents
+                        processus d’immersion, de dépôt, de séchage et
+                        de recomposition.
+                    </p>
+
+                    <p>
+                        Le papier devient une surface sensible capable
+                        d’enregistrer les empreintes de l’écorce, du
+                        relief, de l’eau, des gestes et du temps.
+                        Sa fragilité entre en tension avec la masse
+                        des formes végétales et minérales qu’il
+                        reproduit.
+                    </p>
+
+                    <p>
+                        À travers ces transformations, le paysage
+                        n’est pas envisagé comme une image à
+                        représenter, mais comme un espace de contact,
+                        de mémoire et de sédimentation.
+                    </p>
+
                 </div>
+
             </section>
+
         </main>
+
     </div>
+
 </body>
+
 </html>
