@@ -2,189 +2,394 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Jiankun Lou | Au-bord-de-lac</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jiankun Lou | Au bord du lac</title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* --- 图片网格布局 --- */
+        /* --- 图片网格：图片在上 --- */
+
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 核心指令：每行平均分布 3 列 */
-            gap: 15px; /* 图片之间的间距 */
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 0 0 60px 0;
+            align-items: center;
         }
 
-        .image-grid img {
+        .gallery-img {
+            display: block;
             width: 100%;
-            height: 250px; /* 指令：固定所有缩略图高度，确保整齐对齐 */
-            object-fit: cover; /* 指令：图片等比裁剪填充，防止拉伸变形 */
+            height: 250px;
+            object-fit: contain;
             cursor: pointer;
             transition: opacity 0.3s ease;
         }
 
-        .image-grid img:hover {
-            opacity: 0.8; /* 鼠标悬停效果 */
+        .gallery-img:hover {
+            opacity: 0.75;
         }
 
-        /* --- 放大预览层 (Lightbox) 样式 --- */
+        /* --- 下方作品文字 --- */
+
+        .project-info {
+            max-width: 700px;
+            margin: 0 0 100px 0;
+            text-align: left;
+        }
+
+        .project-title {
+            margin: 0 0 20px 0;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .metadata {
+            margin: 0 0 30px 0;
+            color: #888;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .project-description {
+            margin: 0;
+            color: #444;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        /* --- 放大预览层 --- */
+
         #lightbox {
-            display: none; /* 初始状态：隐藏 */
+            display: none;
             position: fixed;
-            z-index: 1000;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(255, 255, 255, 0.98); /* 极简白背景 */
-            flex-direction: column;
+            z-index: 2000;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
             justify-content: center;
             align-items: center;
         }
 
-        #lightbox img {
+        #lightbox-img {
             max-width: 90%;
-            max-height: 80vh; /* 限制放大后的图片高度，确保不超出屏幕 */
-            object-fit: contain; /* 保证放大图完整显示，不被裁剪 */
-            user-select: none; /* 防止图片被意外选中 */
+            max-height: 85vh;
+            object-fit: contain;
+            user-select: none;
         }
 
-        /* --- 导航按钮 (左右切换) --- */
         .nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2.5rem;
-            color: #333;
-            background: none;
-            border: none;
-            cursor: pointer;
             padding: 20px;
-            z-index: 1001;
-            transition: color 0.3s;
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
 
-        .nav-btn:hover { color: #999; }
-        .prev-btn { left: 3%; } /* 左按钮位置 */
-        .next-btn { right: 3%; } /* 右按钮位置 */
+        .nav-btn:hover {
+            color: #999;
+        }
+
+        .prev-btn {
+            left: 3%;
+        }
+
+        .next-btn {
+            right: 3%;
+        }
 
         .close-btn {
             position: absolute;
-            top: 20px; right: 30px;
-            font-size: 2.5rem;
-            cursor: pointer;
+            top: 20px;
+            right: 30px;
+            padding: 10px;
+            border: none;
+            background: none;
             color: #333;
+            font-size: 2.5rem;
+            line-height: 1;
+            cursor: pointer;
         }
 
-        /* --- 文字排版 --- */
-        .metadata {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #888;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
+        /* --- 手机端 --- */
 
-        .project-description {
-            max-width: 700px;
-            margin: 0 auto 60px auto;
-            font-size: 0.85rem;
-            line-height: 1.8;
-            color: #444;
-            text-align: justify;
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 50px;
+            }
+
+            .gallery-img {
+                height: auto;
+                max-height: none;
+            }
+
+            .project-info {
+                margin-bottom: 60px;
+            }
+
+            .nav-btn {
+                padding: 12px;
+                font-size: 2rem;
+            }
+
+            .prev-btn {
+                left: 0;
+            }
+
+            .next-btn {
+                right: 0;
+            }
+
+            .close-btn {
+                top: 10px;
+                right: 15px;
+            }
         }
     </style>
 </head>
+
 <body>
+
     <div class="container">
+
         <aside class="sidebar">
-            <h1><a href="index.html" style="text-decoration:none; color:inherit;">JIANKUN LOU</a></h1>
+
+            <h1>
+                <a href="index.html"
+                   style="text-decoration: none; color: inherit;">
+                    JIANKUN LOU
+                </a>
+            </h1>
+
             <nav>
                 <ul>
-                    <li><a href="index.html#works">← BACK TO WORKS</a></li>
-                    <li><a href="index.html#about">ABOUT</a></li>
+                    <li>
+                        <a href="dans-la-foret.html">
+                            ← BACK TO SERIES
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="index.html#about">
+                            ABOUT
+                        </a>
+                    </li>
                 </ul>
             </nav>
+
         </aside>
 
         <main class="content">
-            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">Au-bord-de-lac</h2>
-            
-            <p class="metadata">
-                Au bord de lac <br>
-                Papier mâché, charbon, dimension variable, avril 2026 <br>
-                
-            </p>
-            
-            <div class="project-description">
-                Dans cette ensemble, j’ai façonné de plus petites « pierres en papier », que j’ai immergées dans des mélanges d’eau et de poudre de charbon à différentes concentrations. L’intention était d’explorer les processus de sédimentation et d’adhérence de la matière dans le temps.
-Ces traces, apparues progressivement, rappellent les pierres façonnées par l'érosion au bord d’un lac. J’ai ainsi agencé ces éléments de manière à composer une forme évocatrice des lignes laissées par le retrait et l’écoulement de l’eau.
+
+            <!-- 图片在上 -->
 
             <div class="image-grid">
-                <img src="IMG_1351.JPEG" class="gallery-img" alt="1">
-                <img src="IMG_2323.JPEG" class="gallery-img" alt="2">
-                <img src="IMG_3020.JPEG" class="gallery-img" alt="3">
-                <img src="IMG_3059.JPEG" class="gallery-img" alt="4">
-                <img src="IMG_3062.JPEG" class="gallery-img" alt="5">
-                <img src="IMG_3077.JPEG" class="gallery-img" alt="6">
-                <img src="IMG_3521.JPEG" class="gallery-img" alt="7">
-                <img src="IMG_3062.JPEG" class="gallery-img" alt="8">
-                <img src="IMG_3757.JPEG" class="gallery-img" alt="9">
+
+                <img
+                    src="IMG_1351.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 1"
+                >
+
+                <img
+                    src="IMG_2323.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 2"
+                >
+
+                <img
+                    src="IMG_3020.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 3"
+                >
+
+                <img
+                    src="IMG_3059.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 4"
+                >
+
+                <img
+                    src="IMG_3062.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 5"
+                >
+
+                <img
+                    src="IMG_3077.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 6"
+                >
+
+                <img
+                    src="IMG_3521.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 7"
+                >
+
+                <img
+                    src="IMG_3062.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 8"
+                >
+
+                <img
+                    src="IMG_3757.JPEG"
+                    class="gallery-img"
+                    alt="Au bord du lac — vue 9"
+                >
+
             </div>
 
-            <div id="lightbox">
-                <span class="close-btn" onclick="closeLightbox()">&times;</span>
-                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button> <img id="lightbox-img" src="">
-                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button> </div>
+            <!-- 文字在下 -->
+
+            <section class="project-info">
+
+                <h2 class="project-title">
+                    Au bord du lac
+                </h2>
+
+                <p class="metadata">
+                    Papier mâché issu de journaux recyclés et charbon<br>
+                    Dimensions variables, avril 2026
+                </p>
+
+                <div class="project-description">
+
+                    <p>
+                        Dans cet ensemble, j’ai façonné de petites
+                        « pierres en papier », que j’ai immergées dans
+                        des mélanges d’eau et de poudre de charbon à
+                        différentes concentrations. À travers ce
+                        processus, j’explore la sédimentation,
+                        l’adhérence de la matière et l’action du temps.
+                    </p>
+
+                    <p>
+                        Les traces apparues progressivement évoquent
+                        des pierres façonnées par l’érosion au bord
+                        d’un lac. J’ai ensuite agencé ces éléments de
+                        manière à composer une forme rappelant les
+                        lignes laissées par le retrait et l’écoulement
+                        de l’eau.
+                    </p>
+
+                </div>
+
+            </section>
 
         </main>
+
+    </div>
+
+    <!-- 放大预览层 -->
+
+    <div id="lightbox">
+
+        <button
+            class="close-btn"
+            type="button"
+            aria-label="Fermer"
+            onclick="closeLightbox()">
+            &times;
+        </button>
+
+        <button
+            class="nav-btn prev-btn"
+            type="button"
+            aria-label="Image précédente"
+            onclick="changeImage(-1)">
+            &#10094;
+        </button>
+
+        <img id="lightbox-img" src="" alt="">
+
+        <button
+            class="nav-btn next-btn"
+            type="button"
+            aria-label="Image suivante"
+            onclick="changeImage(1)">
+            &#10095;
+        </button>
+
     </div>
 
     <script>
         let currentIdx = 0;
-        const images = document.querySelectorAll('.gallery-img');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
 
-        // 1. 初始化：为所有缩略图绑定点击事件
+        const images = document.querySelectorAll(".gallery-img");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+
         images.forEach((img, index) => {
-            img.onclick = () => {
+            img.addEventListener("click", () => {
                 currentIdx = index;
                 openLightbox();
-            };
+            });
         });
 
-        // 2. 打开放大层
+        function updateLightbox() {
+            lightboxImg.src = images[currentIdx].src;
+            lightboxImg.alt = images[currentIdx].alt;
+        }
+
         function openLightbox() {
-            lightboxImg.src = images[currentIdx].src;
-            lightbox.style.display = 'flex'; // 显示层
-            document.body.style.overflow = 'hidden'; // 禁止背景页面滚动
+            updateLightbox();
+            lightbox.style.display = "flex";
+            document.body.style.overflow = "hidden";
         }
 
-        // 3. 关闭放大层
         function closeLightbox() {
-            lightbox.style.display = 'none'; // 隐藏层
-            document.body.style.overflow = 'auto'; // 恢复滚动
+            lightbox.style.display = "none";
+            document.body.style.overflow = "";
         }
 
-        // 4. 切换图片逻辑 (循环模式)
         function changeImage(step) {
-            currentIdx += step;
-            if (currentIdx >= images.length) currentIdx = 0; // 播完最后一张回第一张
-            if (currentIdx < 0) currentIdx = images.length - 1; // 第一张往前点去最后一张
-            lightboxImg.src = images[currentIdx].src;
+            currentIdx =
+                (currentIdx + step + images.length) % images.length;
+
+            updateLightbox();
         }
 
-        // 5. 键盘交互控制
-        document.addEventListener('keydown', (e) => {
-            if (lightbox.style.display === 'flex') {
-                if (e.key === 'ArrowLeft') changeImage(-1); // 左箭头
-                if (e.key === 'ArrowRight') changeImage(1); // 右箭头
-                if (e.key === 'Escape') closeLightbox();    // Esc 键关闭
+        document.addEventListener("keydown", (event) => {
+            if (lightbox.style.display !== "flex") {
+                return;
+            }
+
+            if (event.key === "ArrowLeft") {
+                changeImage(-1);
+            }
+
+            if (event.key === "ArrowRight") {
+                changeImage(1);
+            }
+
+            if (event.key === "Escape") {
+                closeLightbox();
             }
         });
 
-        // 6. 点击背景空白区域关闭
-        lightbox.onclick = (e) => {
-            if (e.target.id === 'lightbox') closeLightbox();
-        };
+        lightbox.addEventListener("click", (event) => {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
     </script>
+
 </body>
 </html>
