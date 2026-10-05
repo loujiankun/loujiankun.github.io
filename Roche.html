@@ -1,40 +1,91 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Jiankun Lou | Roche</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Jiankun Lou | Roche en papier</title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* 网格布局：每行三张 */
+
+        /* 图片网格：电脑端每行三张 */
+
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 0 0 60px 0;
+            align-items: center;
         }
 
-        .image-grid img {
+        .gallery-img {
+            display: block;
             width: 100%;
-            height: 300px; /* 统一高度，更整齐 */
-            object-fit: cover;
+            height: 280px;
+            object-fit: contain;
             cursor: pointer;
             transition: opacity 0.3s ease;
         }
 
-        .image-grid img:hover {
+        .gallery-img:hover {
             opacity: 0.8;
         }
 
-        /* 灯箱 (Lightbox) 样式 */
+        /* 下方文字 */
+
+        .project-info {
+            max-width: 700px;
+            margin: 0 0 100px 0;
+        }
+
+        .project-title {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .metadata {
+            margin: 0 0 30px 0;
+            color: #888;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .project-description {
+            margin: 0;
+            color: #444;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .project-description p {
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        /* 图片放大预览 */
+
         #lightbox {
             display: none;
             position: fixed;
-            z-index: 1000;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(255, 255, 255, 0.98); /* 极简白背景 */
-            display: none; /* 初始隐藏 */
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -42,147 +93,337 @@
 
         #lightbox img {
             max-width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             object-fit: contain;
             user-select: none;
         }
 
-        /* 左右导航按钮 */
         .nav-btn {
             position: absolute;
+            z-index: 2001;
             top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            color: #333;
-            background: none;
-            border: none;
-            cursor: pointer;
             padding: 20px;
-            z-index: 1001;
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 2.5rem;
+            cursor: pointer;
             user-select: none;
+            transform: translateY(-50%);
         }
 
-        .prev-btn { left: 5%; }
-        .next-btn { right: 5%; }
+        .prev-btn {
+            left: 3%;
+        }
+
+        .next-btn {
+            right: 3%;
+        }
 
         .close-btn {
             position: absolute;
-            top: 20px; right: 30px;
-            font-size: 2rem;
-            cursor: pointer;
+            top: 20px;
+            right: 30px;
             color: #333;
+            font-size: 2.5rem;
+            cursor: pointer;
         }
 
-        .project-description {
-            max-width: 700px;
-            margin: 0 auto 60px auto;
-            font-size: 0.85rem;
-            line-height: 1.8;
-            color: #444;
-            text-align: justify;
+        /* 手机端 */
+
+        @media (max-width: 768px) {
+
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 50px;
+            }
+
+            .gallery-img {
+                height: auto;
+                max-height: none;
+            }
+
+            .project-info {
+                margin-bottom: 60px;
+            }
+
+            .close-btn {
+                top: 15px;
+                right: 20px;
+            }
+
+            .prev-btn {
+                left: 0;
+            }
+
+            .next-btn {
+                right: 0;
+            }
+
         }
 
-        .metadata {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #888;
-            margin-bottom: 40px;
-        }
     </style>
+
 </head>
+
 <body>
+
     <div class="container">
+
         <aside class="sidebar">
-            <h1><a href="index.html" style="text-decoration:none; color:inherit;">JIANKUN LOU</a></h1>
+
+            <h1>
+                <a href="index.html"
+                   style="text-decoration: none; color: inherit;">
+                    JIANKUN LOU
+                </a>
+            </h1>
+
             <nav>
                 <ul>
-                    <li><a href="index.html#works">← BACK TO WORKS</a></li>
-                    <li><a href="index.html#about">ABOUT</a></li>
+
+                    <li>
+                        <a href="dans-la-foret.html">
+                            ← BACK TO SERIES
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="index.html#about">
+                            ABOUT
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
+
         </aside>
 
         <main class="content">
-            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; text-align: center;">Roche</h2>
-            
-            <p class="metadata">
-                Roche en papier mâché de journaux, 210x80x110cm, vue d'installation au sol, avril 2026
-            </p>
-            
-            <div class="project-description">
-               Suivant cette même démarche, j’ai réalisé l’empreinte d’une roche d’environ deux mètres de diamètre. Face à la complexité de sa surface et à la profondeur de ses anfractuosités, j’ai procédé par fragments avant de les réassembler. Cette roche étant à l'origine partiellement ancrée dans le sol, l’œuvre finale prend la forme d’une « roche en papier » dont la base tronquée témoigne de son incomplétude primitive. Cette configuration donne ainsi l'illusion que la roche est délicatement posée à la surface de l'eau.
-            </div>
 
-            <div class="image-grid">
-                <img src="IMG_2079.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3080.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3082.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3728.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3729.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3178.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3705.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3712.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3095.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3176.JPEG" class="gallery-img" alt="Roche 1">
-                <img src="IMG_3177.JPEG" class="gallery-img" alt="Roche 1">
-            </div>
-            
-            <div id="lightbox" style="display: none;">
-                <span class="close-btn" onclick="closeLightbox()">&times;</span>
-                <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
-                <img id="lightbox-img" src="">
-                <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
-            </div>
+            <section class="project-detail">
+
+                <!-- 图片在上 -->
+
+                <div class="image-grid">
+
+                    <img src="IMG_2079.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 1">
+
+                    <img src="IMG_3080.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 2">
+
+                    <img src="IMG_3082.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 3">
+
+                    <img src="IMG_3728.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 4">
+
+                    <img src="IMG_3729.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 5">
+
+                    <img src="IMG_3178.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 6">
+
+                    <img src="IMG_3705.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 7">
+
+                    <img src="IMG_3712.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 8">
+
+                    <img src="IMG_3095.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 9">
+
+                    <img src="IMG_3176.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 10">
+
+                    <img src="IMG_3177.JPEG"
+                         class="gallery-img"
+                         alt="Roche en papier — vue 11">
+
+                </div>
+
+                <!-- 文字在下 -->
+
+                <div class="project-info">
+
+                    <h2 class="project-title">
+                        Roche en papier
+                    </h2>
+
+                    <p class="metadata">
+                        Pâte à papier issue de journaux recyclés
+                        <br>
+                        210 × 80 × 110 cm, installation au sol,
+                        avril 2026
+                    </p>
+
+                    <div class="project-description">
+
+                        <p>
+                            Dans la continuité de mon travail autour
+                            de l’empreinte, j’ai réalisé le moulage
+                            direct d’une roche d’environ deux mètres
+                            de diamètre.
+                        </p>
+
+                        <p>
+                            Face à la complexité de sa surface et à
+                            la profondeur de ses anfractuosités, j’ai
+                            procédé par fragments avant de les
+                            réassembler. Le papier conserve ainsi les
+                            reliefs, les creux et les irrégularités de
+                            la pierre.
+                        </p>
+
+                        <p>
+                            La roche d’origine étant partiellement
+                            ancrée dans le sol, l’œuvre finale prend
+                            la forme d’une « roche en papier » dont la
+                            base tronquée témoigne de son incomplétude
+                            originelle. Cette configuration inverse la
+                            perception de la masse et donne
+                            l’impression que la roche est délicatement
+                            posée à la surface de l’eau.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
 
         </main>
+
+    </div>
+
+    <!-- 图片放大预览 -->
+
+    <div id="lightbox">
+
+        <span class="close-btn"
+              onclick="closeLightbox()">
+            &times;
+        </span>
+
+        <button class="nav-btn prev-btn"
+                type="button"
+                onclick="changeImage(-1)"
+                aria-label="Image précédente">
+            &#10094;
+        </button>
+
+        <img id="lightbox-img"
+             src=""
+             alt="Agrandissement de l’œuvre">
+
+        <button class="nav-btn next-btn"
+                type="button"
+                onclick="changeImage(1)"
+                aria-label="Image suivante">
+            &#10095;
+        </button>
+
     </div>
 
     <script>
-        let currentIdx = 0;
-        const images = document.querySelectorAll('.gallery-img');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
 
-        // 为每张缩略图绑定点击事件
+        let currentIdx = 0;
+
+        const images =
+            document.querySelectorAll('.gallery-img');
+
+        const lightbox =
+            document.getElementById('lightbox');
+
+        const lightboxImg =
+            document.getElementById('lightbox-img');
+
         images.forEach((img, index) => {
-            img.onclick = () => {
+
+            img.addEventListener('click', () => {
+
                 currentIdx = index;
+
                 openLightbox();
-            };
+
+            });
+
         });
 
         function openLightbox() {
+
             lightboxImg.src = images[currentIdx].src;
+
+            lightboxImg.alt = images[currentIdx].alt;
+
             lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // 防止背景滚动
+
+            document.body.style.overflow = 'hidden';
+
         }
 
         function closeLightbox() {
+
             lightbox.style.display = 'none';
+
             document.body.style.overflow = 'auto';
+
         }
 
         function changeImage(step) {
-            currentIdx += step;
-            // 循环逻辑：最后一张点下一张回第一张
-            if (currentIdx >= images.length) currentIdx = 0;
-            if (currentIdx < 0) currentIdx = images.length - 1;
+
+            currentIdx =
+                (currentIdx + step + images.length)
+                % images.length;
+
             lightboxImg.src = images[currentIdx].src;
+
+            lightboxImg.alt = images[currentIdx].alt;
+
         }
 
-        // 键盘左右键控制
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', event => {
+
             if (lightbox.style.display === 'flex') {
-                if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'ArrowRight') changeImage(1);
-                if (e.key === 'Escape') closeLightbox();
+
+                if (event.key === 'ArrowLeft') {
+                    changeImage(-1);
+                }
+
+                if (event.key === 'ArrowRight') {
+                    changeImage(1);
+                }
+
+                if (event.key === 'Escape') {
+                    closeLightbox();
+                }
+
             }
+
         });
 
-        // 点击背景关闭
-        lightbox.onclick = (e) => {
-            if (e.target.id === 'lightbox') closeLightbox();
-        };
+        lightbox.addEventListener('click', event => {
+
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+
+        });
+
     </script>
+
 </body>
+
 </html>
